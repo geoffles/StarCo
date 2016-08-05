@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StarCo.Domain
 {
-    public class StorageContainer
+    public class StorageContainer : IImprovement
     {
         public long Size { get; private set; }
 
@@ -28,6 +28,11 @@ namespace StarCo.Domain
         public static StorageContainer Large()
         {
             return new StorageContainer(1280);
+        }
+
+        public void Tick(Colony colony)
+        {
+            throw new NotImplementedException();
         }
     }
 }

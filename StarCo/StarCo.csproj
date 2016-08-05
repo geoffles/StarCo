@@ -61,11 +61,19 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Domain\Factory\Factory.cs" />
-    <Compile Include="Domain\Factory\InventoryFactory.cs" />
+    <Compile Include="Controllers\CivilisationController.cs" />
+    <Compile Include="Domain\DynamicProducerBase.cs" />
+    <Compile Include="Domain\Factories\ImprovementFactory.cs" />
+    <Compile Include="Domain\Factories\ProductionLookup.cs" />
+    <Compile Include="Domain\Improvements\Habitat.cs" />
+    <Compile Include="Domain\IWorker.cs" />
+    <Compile Include="Domain\Workers\BasicWorker.cs" />
+    <Compile Include="Domain\Factories\ObjectFactory.cs" />
+    <Compile Include="Domain\Factories\InventoryFactory.cs" />
     <Compile Include="Domain\Improvements\BasicMine.cs" />
     <Compile Include="Domain\Colony.cs" />
     <Compile Include="Domain\IImprovement.cs" />
+    <Compile Include="Domain\Improvements\SimpleProducerImprovementBase.cs" />
     <Compile Include="Domain\Inventory.cs" />
     <Compile Include="Domain\Storage.cs" />
     <Compile Include="Domain\StorageContainer.cs" />

@@ -6,40 +6,18 @@ using System.Threading.Tasks;
 
 namespace StarCo.Domain.Improvements
 {
-    public class BasicMine : IImprovement
+    public class BasicMine : SimpleProducerBase, IImprovement
     {
-        private int productionCounter;
-
-        private BasicMine(IList<string> productTypes)
-        {
-            productionCounter = 0;
-            ProductTypes = productTypes;
-        }
+        private BasicMine(IList<string> productTypes) : base(
+            productTypes: productTypes, 
+            productionThreshold: 3, 
+            productionAmount: 1,
+            maxProductionCounter: 10)
+        {}
 
         public static BasicMine Gold()
         {
             return new BasicMine(new List<string> { "gold" });
-        }
-
-        public IList<string> ProductTypes { get; private set; }
-
-        public void Tick(Colony colony)
-        {
-            productionCounter++;
-            if (productionCounter < 3)
-            {
-                return;
-            }
-
-            productionCounter = 0;
-
-            foreach (var product in ProductTypes)
-            {
-                var inventory = colony.GetInventory(product);
-
-                inventory.Add(1);
-            }
-
         }
     }
 

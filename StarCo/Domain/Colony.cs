@@ -10,6 +10,7 @@ namespace StarCo.Domain
     public class Colony
     {
         public IList<IImprovement> Improvements { get; private set; }
+        public IList<IWorker> Workers { get; set; } 
         public IDictionary<string, Inventory> Inventory { get; private set; }
         public Storage Storage { get; private set; }
 
@@ -20,11 +21,16 @@ namespace StarCo.Domain
                 return Inventory[inventoryType];
             }
 
-            var newInventory = Factory.InventoryFactory().CreateInventory(inventoryType, Storage);
+            var newInventory = ObjectFactory.InventoryFactory().CreateInventory(inventoryType, Storage);
 
             Inventory[inventoryType] = newInventory;
 
             return newInventory;
+        }
+
+        public void AddImprovement(IImprovement improvement)
+        {
+            this.Improvements.Add(improvement);
         }
     }
 

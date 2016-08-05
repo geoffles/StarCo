@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StarCo.Controllers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -11,14 +12,9 @@ namespace StarCo
 
     public class MainWindowViewModel : INotifyPropertyChanged
     {
-        private IDictionary<string, IList<string>> ResourceList = new Dictionary<string, IList<string>>
-        {
-            {"Storage", new List<string>{"x", "y", "z"}},
-            {"Inventory", new List<string>{"A", "B", "C"}},
-            {"Improvements", new List<string>{"Foo", "Bar", "Baz"}}
-        };
+        private CivilisationController ColonyController = new CivilisationController();
 
-
+        
         private string selectedColonyItem;
         public string SelectedColonyItem
         {
@@ -29,30 +25,23 @@ namespace StarCo
             }
         }
 
-        public IList<string> ColonyItems { get { return ResourceList.Keys.ToList(); } }
-
-        public IList<string> ColonySubItems { get { return SelectedColonyItem == null? null : ResourceList[SelectedColonyItem]; } }
-
-        public IList<ItemViewViewModel> ListItems
+        private string selectedColonySubItem;
+        public string SelectedColonySubItem
         {
-            get
+            get { return selectedColonySubItem; }
+            set
             {
-                return new List<ItemViewViewModel> 
-                {
-                    new ItemViewViewModel{Title = "Mine", Detail="Gold", Tokens="oooo"},
-                    new ItemViewViewModel{Title = "Mine", Detail="Iron", Tokens="oo" },
-                    new ItemViewViewModel{Title = "Mine", Detail="Silver", Tokens="oo"},
-                    new ItemViewViewModel{Title = "Mine", Detail="Iron", Tokens="oo" },
-                    new ItemViewViewModel{Title = "Mine", Detail="Iron", Tokens="oo" },
-                    new ItemViewViewModel{Title = "Mine", Detail="Iron", Tokens="oo" },
-                    new ItemViewViewModel{Title = "Mine", Detail="Iron", Tokens="oo" },
-                    new ItemViewViewModel{Title = "Mine", Detail="Iron", Tokens="oo" },
-                    new ItemViewViewModel{Title = "Mine", Detail="Iron", Tokens="oo" },
-                    new ItemViewViewModel{Title = "Mine", Detail="Iron", Tokens="oo" },
-
-                };
+                selectedColonySubItem = value;
+                ListItems = ColonyController.FindItemsByResource(SelectedColonyItem, selectedColonySubItem);
+                OnPropertyChanged("ListItems");
             }
         }
+
+        public IList<string> ColonyItems { get { return ColonyController.FindResourceList().Keys.ToList(); } }
+
+        public IList<string> ColonySubItems { get { return SelectedColonyItem == null ? null : ColonyController.FindResourceList()[SelectedColonyItem]; } }
+
+        public IList<ItemViewViewModel> ListItems { get; set; }
 
         private ItemViewViewModel selectedListItem;
         public ItemViewViewModel SelectedListItem 
@@ -69,8 +58,6 @@ namespace StarCo
             }
         }
 
-
-        public string SelectedTitle { get { return SelectedListItem == null ? null : SelectedListItem.Title; } }
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void OnPropertyChanged(string name)

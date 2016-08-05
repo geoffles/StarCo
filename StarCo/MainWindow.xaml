@@ -61,7 +61,8 @@
                 ScrollViewer.CanContentScroll="True"
                 VerticalAlignment="Stretch"
                 HorizontalAlignment="Stretch"
-                     ItemsSource="{Binding ColonySubItems}">
+                ItemsSource="{Binding ColonySubItems}"
+                SelectedItem="{Binding SelectedColonySubItem}">
                 
                 <!--
                 <ListBox.Items>
@@ -93,8 +94,9 @@
 
 
             <StackPanel Grid.Column="0" Grid.Row="2" >
+                <TextBlock Text="{Binding SelectedListItem.Title}" />
                 <TextBlock Text="{Binding SelectedListItem.Detail}" />
-                <TextBlock Text="{Binding SelectedTitle}" />
+                <TextBlock Text="{Binding SelectedListItem.Tokens}" />
             </StackPanel>
 
 
