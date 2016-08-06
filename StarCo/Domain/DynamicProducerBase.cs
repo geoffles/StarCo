@@ -1,4 +1,5 @@
 ﻿using StarCo.Domain.Factories;
+using StarCo.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,20 @@ using System.Threading.Tasks;
 
 namespace StarCo.Domain
 {
-    public abstract class DynamicProducerBase
+    public abstract class DynamicProducerBase : NotifyPropertyChanged
     {
-        public string CurrentProduction { get; protected set; }
+        private string currentProduction;
+        public string CurrentProduction
+        {
+            get { return currentProduction; }
+            set
+            {
+                currentProduction = value;
+                FirePropertyChanged(() => CurrentProduction);
+            }
+        }
+
+        //public string CurrentProduction { get; protected set; }
         public int ProductionCounter { get; private set; }
         public int MaxProductionCounter { get; private set; }
 

@@ -3,11 +3,13 @@ using StarCo.Domain.Improvements;
 using StarCo.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
-namespace StarCo.Domain
+namespace StarCo.Domain.Workers
 {
     public class BasicWorker : DynamicProducerBase, IWorker
     {
@@ -44,13 +46,22 @@ namespace StarCo.Domain
 
         public ColonyItemViewModel ToColonyItemViewModel()
         {
-            return new ColonyItemViewModel
+            var result = new BasicWorkerItemTaskViewModel(this)
             {
                 Label = "Basic Worker",
                 Detail = base.CurrentProduction,
                 SpriteUri = ObjectFactory.AssetName("BasicWorker"),
-                Tokens = new string(Enumerable.Repeat<char>('o', base.ProductionCounter).ToArray())
+                Tokens = new string(Enumerable.Repeat<char>('o', base.ProductionCounter).ToArray()),
+                ChangeProduction = new CommandHandler<BasicWorkerItemTaskViewModel>(
+                    //vm => vm != null && !string.IsNullOrEmpty(vm.SelectedProductionOption),
+                    vm => SetProduction(vm.SelectedProductionOption))
             };
+            return result;
+        }
+
+        public void SetProduction(string production)
+        {
+            CurrentProduction = production;
         }
 
         public string SubCategoryKey

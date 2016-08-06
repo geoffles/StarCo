@@ -53,6 +53,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ColonyTemplateSelector.cs" />
+    <Compile Include="CommandHandler.cs" />
+    <Compile Include="ViewModels\BasicWorkerViewModel.cs" />
     <Compile Include="ViewModels\ColonyItemViewModel.cs" />
     <Compile Include="ViewModels\ListItem.cs" />
     <Compile Include="ViewModels\NotifyPropertyChanged.cs" />

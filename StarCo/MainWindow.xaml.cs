@@ -1,6 +1,7 @@
 ﻿using StarCo.Controllers;
 using StarCo.Domain;
 using StarCo.Domain.Factories;
+using StarCo.Domain.Workers;
 using StarCo.ViewModels;
 using System;
 using System.Collections.Generic;
