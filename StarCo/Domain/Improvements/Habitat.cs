@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StarCo.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,16 @@ namespace StarCo.Domain.Improvements
         public void Tick(Colony colony)
         {
             throw new NotImplementedException();
+        }
+
+        public ColonyItemViewModel ToColonyItemViewModel()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string SubCategoryKey
+        {
+            get { return this.GetType().Name.ToLower(); }
         }
     }
 }

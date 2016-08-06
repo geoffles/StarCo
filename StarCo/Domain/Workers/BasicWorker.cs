@@ -1,5 +1,6 @@
 ﻿using StarCo.Domain.Factories;
 using StarCo.Domain.Improvements;
+using StarCo.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +40,22 @@ namespace StarCo.Domain
             }
 
             this.Colony.AddImprovement(production);
+        }
+
+        public ColonyItemViewModel ToColonyItemViewModel()
+        {
+            return new ColonyItemViewModel
+            {
+                Label = "Basic Worker",
+                Detail = base.CurrentProduction,
+                SpriteUri = ObjectFactory.AssetName("BasicWorker"),
+                Tokens = new string(Enumerable.Repeat<char>('o', base.ProductionCounter).ToArray())
+            };
+        }
+
+        public string SubCategoryKey
+        {
+            get { return "basicworker"; }
         }
     }
 }

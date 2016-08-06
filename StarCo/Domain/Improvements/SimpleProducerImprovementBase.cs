@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StarCo.Domain.Improvements
 {
-    public class SimpleProducerBase : IImprovement
+    public class SimpleProducerBase
     {
         protected int productionCounter;
         protected int productionThreshold;
@@ -23,7 +23,7 @@ namespace StarCo.Domain.Improvements
 
         public IList<string> ProductTypes { get; private set; }
 
-        public virtual void Tick(Colony colony)
+        public virtual void DoTick(Colony colony)
         {
             productionCounter++;
             if (productionCounter < productionThreshold)

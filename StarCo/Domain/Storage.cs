@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StarCo.Domain
 {
-    public class Storage: IImprovement
+    public class Storage//: IImprovement
     {
         public IList<StorageContainer> Containers { get; private set; }
         public IList<Habitat> Habitats { get; private set; }

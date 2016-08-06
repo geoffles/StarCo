@@ -24,7 +24,7 @@ namespace StarCo
     /// </summary>
     public partial class MainWindow : Window
     {
-        private TimeSpan timePerFrame = TimeSpan.FromSeconds(0.3);
+        private TimeSpan timePerFrame = TimeSpan.FromSeconds(1);
         private int currentFrame = 0;
 
         public MainWindowViewModel ViewModel
@@ -41,7 +41,9 @@ namespace StarCo
             var colony = new Colony();
             colony.Storage.AddContainer(StorageContainer.Small());
             colony.Storage.AddContainer(StorageContainer.Small());
-            colony.Storage.AddContainer(StorageContainer.Small());
+            colony.Storage.AddContainer(StorageContainer.Medium());
+
+            colony.AddWorker(new BasicWorker(colony));
 
             colony.Improvements.Add(ObjectFactory.ImprovementFactory().BuildImprovement("basicmine"));
 

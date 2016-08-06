@@ -23,7 +23,8 @@ namespace StarCo.Controllers
             {
                 new ListItem ( label: "Storage", key: "storage" ),
                 new ListItem ( label: "Inventory", key: "inventory" ),
-                new ListItem ( label: "Improvements", key: "improvements" )
+                new ListItem ( label: "Improvements", key: "improvements" ),
+                new ListItem ( label: "Workers", key: "workers" )
             };
         }
 
@@ -32,13 +33,23 @@ namespace StarCo.Controllers
             switch(category.Key)
             {
                 case "storage": return StorageCategories();
-                case "inventory": return Inventories();
-                case "improvements": return Improvements();
+                case "inventory": return InventoryCategories();
+                case "improvements": return ImprovementCategories();
+                case "workers": return WorkerCategories();
                 default: throw new NotImplementedException();
             };
         }
 
-        private IList<ListItem> Improvements()
+        private IList<ListItem> WorkerCategories()
+        {
+            return Colony
+                .Workers
+                .GroupBy(p => p.SubCategoryKey)
+                .Select(p => new ListItem(key:p.Key, label:p.Key))
+                .ToList();
+        }
+
+        private IList<ListItem> ImprovementCategories()
         {
             return Colony
                 .Improvements
@@ -48,10 +59,9 @@ namespace StarCo.Controllers
                     label: p.GetType().Name
                 ))
                 .ToList();
-                
         }
 
-        private IList<ListItem> Inventories()
+        private IList<ListItem> InventoryCategories()
         {
             return Colony.Inventory.Keys.Select(p => new ListItem
                 (
@@ -78,21 +88,33 @@ namespace StarCo.Controllers
                 case "storage": return Storage(subcategory);
                 case "inventory": return Inventory(subcategory);
                 case "improvements": return Improvement(subcategory);
+                case "workers": return Workers(subcategory);
                 default: throw new NotImplementedException();
             };
+        }
+
+        private IList<ColonyItemViewModel> Workers(ListItem subcategory)
+        {
+            var workers = Colony
+                .Workers
+                .GroupBy(p => p.GetType().Name)
+                .Where(p => p.Key.ToLower() == subcategory.Key)
+                .SelectMany(p => p)
+                .Select(p => p.ToColonyItemViewModel())
+                .ToList();
+
+            return workers;
         }
 
         private IList<ColonyItemViewModel> Improvement(ListItem subcategory)
         {
             var improvements = Colony
                 .Improvements
-                .Where(p => p.GetType().Name.ToLower() == subcategory.Key)
-                .Select(p => new ColonyItemViewModel
-                {
-                    Detail = "Basic Mine",
-                    Tokens = "ooo",
-                    SpriteUri = "/StarCo;component/Assets/BasicMine.png"
-                }).ToList();
+                .GroupBy(p => p.GetType().Name)
+                .Where(p => p.Key.ToLower() == subcategory.Key)
+                .SelectMany(p => p)
+                .Select(p => p.ToColonyItemViewModel())
+                .ToList();
 
             return improvements;
         }
@@ -106,12 +128,7 @@ namespace StarCo.Controllers
         {
             if (subcategory.Key == "storage")
             {
-                return Colony.Storage.Containers.Select(p => new ColonyItemViewModel
-                    {
-                        Detail = "Small Storage",
-                        Tokens = "ooo",
-                        SpriteUri = "/StarCo;component/Assets/SmallStorage.png"
-                    }).ToList();
+                return Colony.Storage.Containers.Select(p => p.ToColonyItemViewModel()).ToList();
             }
 
             return null;

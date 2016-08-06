@@ -22,5 +22,10 @@ namespace StarCo.Domain.Factories
         {
             return new ImprovementFactory();
         }
+
+        public static string AssetName(string asset)
+        {
+            return string.Format("/StarCo;component/Assets/{0}.png", asset);
+        }
     }
 }

@@ -40,6 +40,11 @@ namespace StarCo.Domain
         {
             this.Improvements.Add(improvement);
         }
+
+        public void AddWorker(IWorker worker)
+        {
+            this.Workers.Add(worker);
+        }
     }
 
 

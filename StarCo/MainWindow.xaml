@@ -124,7 +124,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
-                            <TextBlock Text="{Binding Detail}"/>
+                            <TextBlock Text="{Binding Label}"/>
                             <!--<Rectangle Height="32" Width="32" Fill="Blue"/>
                             <Image Height="32" Width="32">
                                 <Image.Source>
@@ -144,6 +144,7 @@
                                     </ImageBrush>
                                 </Rectangle.Fill>
                             </Rectangle>
+                            <TextBlock Text="{Binding Detail}" TextAlignment="Center"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>

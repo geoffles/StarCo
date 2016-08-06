@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StarCo.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,9 @@ namespace StarCo.Domain
 {
     public interface IImprovement
     {
+        ColonyItemViewModel ToColonyItemViewModel();
+        string SubCategoryKey { get; }
+
         void Tick(Colony colony);
     }
 }
