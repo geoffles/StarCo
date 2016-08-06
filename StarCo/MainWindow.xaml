@@ -45,8 +45,13 @@
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Grid.Column="0">My Stuff</TextBlock>
             <ListBox Grid.Row="1" Grid.Column="0"
-                     SelectedItem="{Binding SelectedColonyItem}"
-                     ItemsSource="{Binding ColonyItems}">
+                     SelectedItem="{Binding SelectedCategory}"
+                     ItemsSource="{Binding Categories}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Label}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
                 <!--
                 <ListBox.Items>
                     <ListBoxItem>Storage</ListBoxItem>
@@ -61,9 +66,13 @@
                 ScrollViewer.CanContentScroll="True"
                 VerticalAlignment="Stretch"
                 HorizontalAlignment="Stretch"
-                ItemsSource="{Binding ColonySubItems}"
-                SelectedItem="{Binding SelectedColonySubItem}">
-                
+                ItemsSource="{Binding SubCategories}"
+                SelectedItem="{Binding SelectedSubCategory}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Label}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
                 <!--
                 <ListBox.Items>
                     <ListBoxItem>Storage</ListBoxItem>
@@ -94,16 +103,16 @@
 
 
             <StackPanel Grid.Column="0" Grid.Row="2" >
-                <TextBlock Text="{Binding SelectedListItem.Title}" />
-                <TextBlock Text="{Binding SelectedListItem.Detail}" />
-                <TextBlock Text="{Binding SelectedListItem.Tokens}" />
+                <TextBlock Text="{Binding SelectedColonyItem.Title}" />
+                <TextBlock Text="{Binding SelectedColonyItem.Detail}" />
+                <TextBlock Text="{Binding SelectedColonyItem.Tokens}" />
             </StackPanel>
 
 
 
             <ListView Grid.Column="0" Grid.Row="0" 
-                      ItemsSource="{Binding ListItems}" 
-                      SelectedItem="{Binding SelectedListItem}"
+                      ItemsSource="{Binding ColonyItems}" 
+                      SelectedItem="{Binding SelectedColonyItem}"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       SelectionMode="Single">
                 <ListView.ItemsPanel>
@@ -115,8 +124,26 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
-                            <TextBlock Text="{Binding Title}"/>
-                            <Rectangle Height="32" Width="32" Fill="Blue"/>
+                            <TextBlock Text="{Binding Detail}"/>
+                            <!--<Rectangle Height="32" Width="32" Fill="Blue"/>
+                            <Image Height="32" Width="32">
+                                <Image.Source>
+                                    <CroppedBitmap Source="{Binding SpriteUri}" SourceRect="0 0 32 32" />
+                                </Image.Source>
+                            </Image>-->
+                            <Rectangle Width="32" Height="32">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="{Binding SpriteUri}"
+                                                Viewport="0,0,64,32"
+                                                Stretch="None"
+                                                AlignmentX="Left"
+                                                AlignmentY="Top">
+                                        <ImageBrush.Transform>
+                                            <TranslateTransform X="{Binding SpriteXOffset}" Y="0" />
+                                        </ImageBrush.Transform>
+                                    </ImageBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>

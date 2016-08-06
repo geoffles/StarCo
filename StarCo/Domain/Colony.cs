@@ -14,6 +14,14 @@ namespace StarCo.Domain
         public IDictionary<string, Inventory> Inventory { get; private set; }
         public Storage Storage { get; private set; }
 
+        public Colony()
+        {
+            Storage = new Storage();
+            Improvements = new List<IImprovement>();
+            Workers = new List<IWorker>();
+            Inventory = new Dictionary<string, Inventory>();
+        }
+
         public Inventory GetInventory(string inventoryType)
         {
             if (Inventory.ContainsKey(inventoryType))

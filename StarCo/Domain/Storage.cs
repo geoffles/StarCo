@@ -14,6 +14,12 @@ namespace StarCo.Domain
         public long Size { get; private set; }
         public long Available { get; private set; }
 
+        public Storage()
+        {
+            Containers = new List<StorageContainer>();
+            Habitats = new List<Habitat>();
+        }
+
         public void AddContainer(StorageContainer container)
         {
             Containers.Add(container);

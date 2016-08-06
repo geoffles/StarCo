@@ -53,6 +53,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModels\ColonyItemViewModel.cs" />
+    <Compile Include="ViewModels\ListItem.cs" />
+    <Compile Include="ViewModels\NotifyPropertyChanged.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -62,8 +65,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controllers\CivilisationController.cs" />
+    <Compile Include="Controllers\ColonyController.cs" />
     <Compile Include="Domain\DynamicProducerBase.cs" />
     <Compile Include="Domain\Factories\ImprovementFactory.cs" />
+    <Compile Include="Domain\Factories\LabelLookup.cs" />
     <Compile Include="Domain\Factories\ProductionLookup.cs" />
     <Compile Include="Domain\Improvements\Habitat.cs" />
     <Compile Include="Domain\IWorker.cs" />
@@ -77,14 +82,14 @@
     <Compile Include="Domain\Inventory.cs" />
     <Compile Include="Domain\Storage.cs" />
     <Compile Include="Domain\StorageContainer.cs" />
-    <Compile Include="ItemViewViewModel.cs" />
+    <Compile Include="ViewModels\ItemViewViewModel.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -111,7 +116,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Assets\BasicMine.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\SmallStorage.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
