@@ -1,14 +1,85 @@
-﻿using System;
+﻿using StarCo.Domain.Factories;
+using StarCo.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace StarCo.Domain.Improvements
 {
-    public class SimpleProducerBase
+    [DataContract]
+    public abstract class SimpleProducerBase : NotifyPropertyChanged
     {
-        protected int productionCounter;
+        [DataMember]
+        private string currentProduction;
+        public string CurrentProduction
+        {
+            get { return currentProduction; }
+            set
+            {
+                currentProduction = value;
+                FirePropertyChanged(() => CurrentProduction);
+            }
+        }
+
+        [DataMember]
+        private int productionCounter;
+        public int ProductionCounter
+        {
+            get { return productionCounter; }
+            set
+            {
+                productionCounter = value;
+                FirePropertyChanged(() => ProductionCounter);
+            }
+        }
+
+        [DataMember]
+        public int ProductionAmount { get; private set; }
+
+        [DataMember]
+        protected int ProductionThreshold { get; private set; }
+        [DataMember]
+        public IList<string> ProductTypes { get; private set; }
+
+        protected SimpleProducerBase(IList<string> productTypes, int productionThreshold, int productionAmount)
+        {
+            ProductionThreshold = productionThreshold;
+            ProductTypes = productTypes;
+            ProductionAmount = productionAmount;
+        }
+
+        protected abstract bool CheckProductionSpace();
+
+        protected abstract void AllocateProduction();
+
+        protected void DoProduction()
+        {
+            ProductionCounter++;
+
+            if (!String.IsNullOrEmpty(CurrentProduction))
+            {
+                DoProductionInternal();
+            }
+        }
+
+        private void DoProductionInternal()
+        {
+
+            int productionThreshold = ObjectFactory.ProductionLookup().GetProductionTimeFor(CurrentProduction);
+            if (ProductionCounter >= productionThreshold)
+            {
+                if (CheckProductionSpace())
+                {
+                    AllocateProduction();
+                    ProductionCounter -= productionThreshold;
+                }
+            }
+        }
+
+        /*protected int productionCounter;
         protected int productionThreshold;
         protected int productionAmount;
         protected int maxProductionCounter;
@@ -61,6 +132,6 @@ namespace StarCo.Domain.Improvements
             {
                 productionCounter -= productionThreshold;
             }
-        }
+        }*/        
     }
 }

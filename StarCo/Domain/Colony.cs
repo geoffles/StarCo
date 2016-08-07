@@ -4,14 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using StarCo.Domain.Factories;
+using System.Runtime.Serialization;
 
 namespace StarCo.Domain
 {
+    [DataContract(IsReference=true)]
     public class Colony
     {
+        [DataMember]
         public IList<IImprovement> Improvements { get; private set; }
+        [DataMember]
         public IList<IWorker> Workers { get; set; } 
+        [DataMember]
         public IDictionary<string, Inventory> Inventory { get; private set; }
+        [DataMember]
         public Storage Storage { get; private set; }
 
         public Colony()
@@ -39,6 +45,7 @@ namespace StarCo.Domain
         public void AddImprovement(IImprovement improvement)
         {
             this.Improvements.Add(improvement);
+            improvement.Link(this);
         }
 
         public void AddWorker(IWorker worker)

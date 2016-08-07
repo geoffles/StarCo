@@ -20,14 +20,18 @@ namespace StarCo.ViewModels
             Tick = new CommandHandler(() => {
                 ColonyController.Tick();
                 UpdateView();
+                new Persister().Save(ColonyController.Colony);
             });
         }
 
         private void UpdateView()
         {
-            var selectedIndex = ColonyItems.IndexOf(SelectedColonyItem);
-            SelectedSubCategory = SelectedSubCategory;
-            SelectedColonyItem = ColonyItems[selectedIndex];
+            if (colonyItems != null)
+            {
+                var selectedIndex = ColonyItems.IndexOf(SelectedColonyItem);
+                SelectedSubCategory = SelectedSubCategory;
+                SelectedColonyItem = ColonyItems[selectedIndex];
+            }
             StorageSpace= ColonyController.GetStorageSpaceUsage();
         }
 

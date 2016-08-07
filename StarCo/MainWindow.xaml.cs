@@ -39,14 +39,16 @@ namespace StarCo
         {
             InitializeComponent();
 
-            var colony = new Colony();
-            colony.Storage.AddContainer(StorageContainer.Small());
-            colony.Storage.AddContainer(StorageContainer.Small());
-            colony.Storage.AddContainer(StorageContainer.Medium());
+            //var colony = new Colony();
+            //colony.Storage.AddContainer(StorageContainer.Small());
+            //colony.Storage.AddContainer(StorageContainer.Small());
+            //colony.Storage.AddContainer(StorageContainer.Medium());
+            
+            //colony.AddWorker(new BasicWorker(colony));
+            
+            //colony.Improvements.Add(ObjectFactory.ImprovementFactory().BuildImprovement("basicmine"));
 
-            colony.AddWorker(new BasicWorker(colony));
-
-            colony.Improvements.Add(ObjectFactory.ImprovementFactory().BuildImprovement("basicmine"));
+            var colony = new Persister().Load("Save.xml");
 
             ViewModel = new MainWindowViewModel(new ColonyController(colony));
 

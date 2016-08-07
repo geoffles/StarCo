@@ -3,16 +3,20 @@ using StarCo.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace StarCo.Domain
 {
+    [DataContract]
     public class StorageContainer : IImprovement
     {
-
+        [DataMember]
         public string Label { get; private set; }
+        [DataMember]
         public string SpriteUri { get; private set; }
+        [DataMember]
         public long Size { get; private set; }
 
         public ColonyItemViewModel ToColonyItemViewModel()
@@ -54,6 +58,11 @@ namespace StarCo.Domain
         }
 
         public void Tick(Colony colony)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Link(Colony colony)
         {
             throw new NotImplementedException();
         }

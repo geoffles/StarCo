@@ -3,19 +3,23 @@ using StarCo.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace StarCo.Domain.Improvements
 {
+    [DataContract]
     public class BasicMine : SimpleProducerBase, IImprovement
     {
+        public Colony Colony { get; private set; }
+
         private BasicMine(IList<string> productTypes) : base(
             productTypes: productTypes, 
             productionThreshold: 3, 
-            productionAmount: 1,
-            maxProductionCounter: 10)
+            productionAmount: 1)
         {}
+
 
         public static BasicMine Gold()
         {
@@ -26,10 +30,10 @@ namespace StarCo.Domain.Improvements
         {
             return new ColonyItemViewModel
             {
-                Label = this.Label,
-                Detail = this.Detail,
-                SpriteUri = this.SpriteUri,
-                Tokens = this.Tokens
+                Label = "Basic Mine",
+                Detail = string.Join(",", ProductTypes),
+                SpriteUri = ObjectFactory.AssetName("BasicMine"),
+                Tokens = new string(Enumerable.Repeat<char>('o', ProductionCounter).ToArray())
             };
         }
 
@@ -38,30 +42,24 @@ namespace StarCo.Domain.Improvements
             get { return this.GetType().Name.ToLower(); }
         }
 
-        public string Label
+        public void Link(Colony colony)
         {
-            get { return "Basic Mine"; }
-        }
-
-        public string Detail
-        {
-            get { return string.Join(",", ProductTypes); }
-        }
-
-        public string Tokens
-        {
-            get { return new string(Enumerable.Repeat<char>('o', productionCounter).ToArray()); }
-        }
-
-        public string SpriteUri
-        {
-            get { return ObjectFactory.AssetName("BasicMine"); }
+            Colony = colony;
         }
 
         public void Tick(Colony colony)
         {
-            base.DoTick(colony);
+            base.DoProduction();
+        }
+
+        protected override bool CheckProductionSpace()
+        {
+            return Colony.Storage.Available >= ProductionAmount * ObjectFactory.ProductionLookup().GetProductionSpaceFor(this.CurrentProduction);
+        }
+
+        protected override void AllocateProduction()
+        {
+            Colony.Storage.Store(ProductionAmount);
         }
     }
-
 }

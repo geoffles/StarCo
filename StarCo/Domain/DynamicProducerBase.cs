@@ -3,13 +3,16 @@ using StarCo.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace StarCo.Domain
 {
+    [DataContract]
     public abstract class DynamicProducerBase : NotifyPropertyChanged
     {
+        [DataMember]
         private string currentProduction;
         public string CurrentProduction
         {
@@ -21,6 +24,7 @@ namespace StarCo.Domain
             }
         }
 
+        [DataMember]
         private int productionCounter;
         public int ProductionCounter
         {
@@ -32,6 +36,7 @@ namespace StarCo.Domain
             }
         }
 
+        [DataMember]
         public int MaxProductionCounter { get; private set; }
 
         protected DynamicProducerBase(int maxProductionCounter)

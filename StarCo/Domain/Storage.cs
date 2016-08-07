@@ -2,16 +2,22 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace StarCo.Domain
 {
+    [DataContract(IsReference=true)]
     public class Storage//: IImprovement
     {
+        [DataMember]
         public IList<StorageContainer> Containers { get; private set; }
+        //[DataMember]
         public IList<Habitat> Habitats { get; private set; }
+        [DataMember]
         public long Size { get; private set; }
+        [DataMember]
         public long Available { get; private set; }
 
         public Storage()
@@ -33,7 +39,7 @@ namespace StarCo.Domain
             Available += quantity;
         }
 
-        public bool Consume(long quantity)
+        public bool Store(long quantity)
         {
             if (Available >= quantity)
             {

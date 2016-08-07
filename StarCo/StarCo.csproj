@@ -36,6 +36,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,6 +56,7 @@
     </ApplicationDefinition>
     <Compile Include="ColonyTemplateSelector.cs" />
     <Compile Include="CommandHandler.cs" />
+    <Compile Include="Persister.cs" />
     <Compile Include="ViewModels\BasicWorkerViewModel.cs" />
     <Compile Include="ViewModels\ColonyItemViewModel.cs" />
     <Compile Include="ViewModels\ListItem.cs" />

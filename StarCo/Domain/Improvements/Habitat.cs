@@ -23,5 +23,10 @@ namespace StarCo.Domain.Improvements
         {
             get { return this.GetType().Name.ToLower(); }
         }
+
+        public void Link(Colony colony)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -5,14 +5,17 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace StarCo.Domain.Workers
 {
+    [DataContract]
     public class BasicWorker : DynamicProducerBase, IWorker
     {
+        [DataMember]
         public Colony Colony { get; private set; }
         public BasicWorker(Colony colony) : base(10)
         {

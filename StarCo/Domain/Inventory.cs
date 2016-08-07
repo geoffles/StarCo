@@ -3,11 +3,13 @@ using StarCo.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace StarCo.Domain
 {
+    [DataContract]
     public class Inventory
     {
         public Inventory(string name, int size, Storage storage)
@@ -18,14 +20,18 @@ namespace StarCo.Domain
             Quantity = 0;
         }
 
+        [DataMember]
         public string Name { get; private set; }
+        [DataMember]
         public int Quantity { get; private set; }
+        [DataMember]
         public int Size { get; private set; }
+        [DataMember]
         public Storage Storage { get; private set; }
 
         public bool Add(int quantity)
         {
-            if (Storage.Consume(Size * quantity))
+            if (Storage.Store(Size * quantity))
             {
                 Quantity += quantity;
                 return true;
