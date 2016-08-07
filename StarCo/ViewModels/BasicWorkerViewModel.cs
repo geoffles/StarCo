@@ -18,19 +18,23 @@ namespace StarCo.ViewModels
                 {
                     Detail = recieveUpdatesFrom.CurrentProduction;
                 }
+                if (e.PropertyName == "ProductionCounter")
+                {
+                    Tokens = new string(Enumerable.Repeat<char>('o', recieveUpdatesFrom.ProductionCounter).ToArray());
+                }
             };
 
-            ProductionOptions = new List<string>
+            ProductionOptions = new List<ListItem>
             {
-                "Storage",
-                "Mine"
+                new ListItem("smallstorage", "Storage"),
+                new ListItem("basicmine", "Mine")
             };
         }
 
         public ICommand ChangeProduction { get; set; }
 
-        public string SelectedProductionOption { get; set; }
-        public List<string> ProductionOptions { get; set; }
+        public ListItem SelectedProductionOption { get; set; }
+        public List<ListItem> ProductionOptions { get; set; }
         
     }
 

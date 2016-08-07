@@ -21,8 +21,17 @@ namespace StarCo.Domain
             }
         }
 
-        //public string CurrentProduction { get; protected set; }
-        public int ProductionCounter { get; private set; }
+        private int productionCounter;
+        public int ProductionCounter
+        {
+            get { return productionCounter; }
+            set
+            {
+                productionCounter = value;
+                FirePropertyChanged(() => ProductionCounter);
+            }
+        }
+
         public int MaxProductionCounter { get; private set; }
 
         protected DynamicProducerBase(int maxProductionCounter)

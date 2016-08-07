@@ -18,11 +18,22 @@ namespace StarCo.ViewModels
                 FirePropertyChanged(() => Detail);
             }
         }
-        
+
+        private string tokens;
+        public string Tokens
+        {
+            get { return tokens; }
+            set
+            {
+                tokens = value;
+                FirePropertyChanged(() => Tokens);
+            }
+        }
+
         public string Label { get; set; }
         public string SpriteUri { get; set; }
         
-        public string Tokens { get; set; }
+        
 
         private int spriteXOffset;
         public int SpriteXOffset

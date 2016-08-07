@@ -23,7 +23,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
-                            <TextBlock Text="{Binding}"/>
+                            <TextBlock Text="{Binding Label}"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>

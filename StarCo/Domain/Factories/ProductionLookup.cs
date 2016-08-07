@@ -20,8 +20,9 @@ namespace StarCo.Domain.Factories
             ProductionTimes = new Dictionary<string, Production>
             {
                 { "smallstorage", new Production{Time = 5, Size = 0 } },
-                { "mediumstorage", new Production{Time = 10, Size = 0}  },
-                { "largestorage", new Production{Time = 15, Size = 0}  }
+                { "mediumstorage", new Production{Time = 10, Size = 0} },
+                { "largestorage", new Production{Time = 15, Size = 0} },
+                { "basicmine", new Production{Time = 10, Size = 0 } }
             };
         }
 

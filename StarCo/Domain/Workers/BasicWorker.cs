@@ -14,7 +14,7 @@ namespace StarCo.Domain.Workers
     public class BasicWorker : DynamicProducerBase, IWorker
     {
         public Colony Colony { get; private set; }
-        public BasicWorker(Colony colony) : base(8)
+        public BasicWorker(Colony colony) : base(10)
         {
             Colony = colony;
         }
@@ -36,12 +36,14 @@ namespace StarCo.Domain.Workers
             {
                 Colony.Storage.AddContainer((StorageContainer)production);
             }
-            if (production is Habitat)
+            else if (production is Habitat)
             {
                 throw new NotImplementedException();
             }
-
-            this.Colony.AddImprovement(production);
+            else 
+            {
+                this.Colony.AddImprovement(production);
+            }
         }
 
         public ColonyItemViewModel ToColonyItemViewModel()
@@ -52,9 +54,7 @@ namespace StarCo.Domain.Workers
                 Detail = base.CurrentProduction,
                 SpriteUri = ObjectFactory.AssetName("BasicWorker"),
                 Tokens = new string(Enumerable.Repeat<char>('o', base.ProductionCounter).ToArray()),
-                ChangeProduction = new CommandHandler<BasicWorkerItemTaskViewModel>(
-                    //vm => vm != null && !string.IsNullOrEmpty(vm.SelectedProductionOption),
-                    vm => SetProduction(vm.SelectedProductionOption))
+                ChangeProduction = new CommandHandler<BasicWorkerItemTaskViewModel>(vm => SetProduction(vm.SelectedProductionOption.Key))
             };
             return result;
         }
