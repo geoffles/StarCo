@@ -1,4 +1,6 @@
-﻿using System;
+﻿using StarCo.Domain.Factories;
+using StarCo.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -41,6 +43,17 @@ namespace StarCo.Domain
                 return true;
             }
             return false;
+        }
+
+        public ColonyItemViewModel ToColonyItemViewModel()
+        {
+            return new ColonyItemViewModel
+            {
+                Label = "Gold",
+                Detail = Quantity.ToString(),
+                SpriteUri = ObjectFactory.AssetName("Gold"),
+                Tokens = ""
+            };
         }
     }
 }

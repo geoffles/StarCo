@@ -44,6 +44,7 @@ namespace StarCo.Domain.Workers
             {
                 this.Colony.AddImprovement(production);
             }
+            CurrentProduction = null;
         }
 
         public ColonyItemViewModel ToColonyItemViewModel()

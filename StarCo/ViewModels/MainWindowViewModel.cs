@@ -17,7 +17,18 @@ namespace StarCo.ViewModels
         {
             ColonyController = colonyController;
             Categories = ColonyController.FindCategories();
-            Tick = new CommandHandler(() => ColonyController.Tick());
+            Tick = new CommandHandler(() => {
+                ColonyController.Tick();
+                UpdateView();
+            });
+        }
+
+        private void UpdateView()
+        {
+            var selectedIndex = ColonyItems.IndexOf(SelectedColonyItem);
+            SelectedSubCategory = SelectedSubCategory;
+            SelectedColonyItem = ColonyItems[selectedIndex];
+            StorageSpace= ColonyController.GetStorageSpaceUsage();
         }
 
         private IList<ListItem> categories;
@@ -100,6 +111,28 @@ namespace StarCo.ViewModels
             {
                 selectedColonyItem = value;
                 FirePropertyChanged(() => SelectedColonyItem);
+            }
+        }
+
+        private int livingSpace;
+        public int LivingSpace
+        {
+            get { return livingSpace; }
+            set
+            {
+                livingSpace = value;
+                FirePropertyChanged(() => LivingSpace);
+            }
+        }
+
+        private int storageSpace;
+        public int StorageSpace
+        {
+            get { return storageSpace; }
+            set
+            {
+                storageSpace = value;
+                FirePropertyChanged(() => StorageSpace);
             }
         }
 

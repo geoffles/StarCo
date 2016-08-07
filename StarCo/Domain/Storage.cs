@@ -25,6 +25,7 @@ namespace StarCo.Domain
             Containers.Add(container);
 
             Size = Containers.Sum(p => p.Size);
+            Available += container.Size;
         }
 
         public void Free(long quantity)
@@ -36,7 +37,7 @@ namespace StarCo.Domain
         {
             if (Available >= quantity)
             {
-                Available = -quantity;
+                Available = Available - quantity;
                 return true;
             }
             return false;

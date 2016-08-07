@@ -53,10 +53,12 @@ namespace StarCo.Controllers
         {
             return Colony
                 .Improvements
+                .Select(p => p.GetType().Name)
+                .Distinct()
                 .Select(p => new ListItem
                 (
-                    key: p.GetType().Name.ToLower(),
-                    label: p.GetType().Name
+                    key: p.ToLower(),
+                    label: p 
                 ))
                 .ToList();
         }
@@ -121,7 +123,9 @@ namespace StarCo.Controllers
 
         private IList<ColonyItemViewModel> Inventory(ListItem subcategory)
         {
-            throw new NotImplementedException();
+            var viewModel = Colony.GetInventory(subcategory.Key).ToColonyItemViewModel();
+
+            return Enumerable.Repeat(viewModel, 1).ToList();
         }
 
         private IList<ColonyItemViewModel> Storage(ListItem subcategory)
@@ -137,6 +141,11 @@ namespace StarCo.Controllers
         public void Tick()
         {
             Colony.Tick();
+        }
+
+        public int GetStorageSpaceUsage()
+        {
+            return (int)(Colony.Storage.Available * 100 / Colony.Storage.Size);
         }
     }
 }
