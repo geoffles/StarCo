@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:ns="clr-namespace:StarCo.ViewModels">
+
+    <DataTemplate DataType="{x:Type ns:ColonyItemViewModel}">
+        <StackPanel>
+            <TextBlock Text="{Binding Label}" />
+            <TextBlock Text="{Binding Detail}" />
+            <TextBlock Text="{Binding Tokens}" />
+        </StackPanel>
+    </DataTemplate>
+
+</ResourceDictionary>

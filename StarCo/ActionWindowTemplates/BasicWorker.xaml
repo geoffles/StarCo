@@ -1,0 +1,35 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:ns="clr-namespace:StarCo.ViewModels">
+    
+    <DataTemplate DataType="{x:Type ns:BasicWorkerItemTaskViewModel}">
+        <StackPanel>
+            <TextBlock Text="Foo" />
+            <TextBlock Background="Red" Text="{Binding Label}" />
+            <TextBlock Text="{Binding Detail}" />
+            <TextBlock Text="{Binding Tokens}" />
+
+            <ListView Grid.Column="0" Grid.Row="0" 
+                      ItemsSource="{Binding ProductionOptions}" 
+                      SelectedItem="{Binding SelectedProductionOption}"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      SelectionMode="Single">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Button Command="{Binding ChangeProduction}" Content="Change Production" CommandParameter="{Binding}" />
+        </StackPanel>
+    </DataTemplate>
+</ResourceDictionary>

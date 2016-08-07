@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace StarCo.ViewModels
 {
@@ -15,8 +16,8 @@ namespace StarCo.ViewModels
         public MainWindowViewModel(ColonyController colonyController)
         {
             ColonyController = colonyController;
-
             Categories = ColonyController.FindCategories();
+            Tick = new CommandHandler(() => ColonyController.Tick());
         }
 
         private IList<ListItem> categories;
@@ -37,7 +38,14 @@ namespace StarCo.ViewModels
             set
             {
                 selectedCategory = value;
-                SubCategories = ColonyController.FindSubCategories(selectedCategory);
+                if (SelectedCategory != null)
+                {
+                    SubCategories = ColonyController.FindSubCategories(selectedCategory);
+                }
+                else
+                {
+                    SubCategories = null;
+                }
                 FirePropertyChanged(() => SelectedCategory);
             }
         }
@@ -60,7 +68,14 @@ namespace StarCo.ViewModels
             set
             {
                 selectedSubCategory = value;
-                ColonyItems = ColonyController.FindItems(SelectedCategory, SelectedSubCategory);
+                if (SelectedSubCategory != null)
+                {
+                    ColonyItems = ColonyController.FindItems(SelectedCategory, SelectedSubCategory);
+                }
+                else
+                {
+                    ColonyItems = null;
+                }
                 FirePropertyChanged(() => ColonyItems);
                 FirePropertyChanged(() => SelectedSubCategory);
             }
@@ -87,5 +102,7 @@ namespace StarCo.ViewModels
                 FirePropertyChanged(() => SelectedColonyItem);
             }
         }
+
+        public ICommand Tick { get; private set; }
     }
 }

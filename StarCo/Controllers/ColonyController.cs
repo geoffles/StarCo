@@ -133,5 +133,10 @@ namespace StarCo.Controllers
 
             return null;
         }
+
+        public void Tick()
+        {
+            Colony.Tick();
+        }
     }
 }

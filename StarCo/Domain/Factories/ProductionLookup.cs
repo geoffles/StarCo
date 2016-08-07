@@ -33,5 +33,14 @@ namespace StarCo.Domain.Factories
             }
             throw new ArgumentException("No Resource '" + resourceName + "'");
         }
+
+        public int GetProductionSpaceFor(string resourceName)
+        {
+            if (ProductionTimes.ContainsKey(resourceName))
+            {
+                return ProductionTimes[resourceName].Size;
+            }
+            throw new ArgumentException("No Resource '" + resourceName + "'");
+        }
     }
 }

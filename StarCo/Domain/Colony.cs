@@ -45,7 +45,18 @@ namespace StarCo.Domain
         {
             this.Workers.Add(worker);
         }
+
+        public void Tick()
+        {
+            foreach(var worker in Workers)
+            {
+                worker.Tick();
+            }
+
+            foreach(var improvement in Improvements)
+            {
+                improvement.Tick(this);
+            }
+        }
     }
-
-
 }

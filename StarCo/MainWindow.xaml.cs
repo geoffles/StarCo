@@ -25,7 +25,7 @@ namespace StarCo
     /// </summary>
     public partial class MainWindow : Window
     {
-        private TimeSpan timePerFrame = TimeSpan.FromSeconds(1);
+        private TimeSpan timePerFrame = TimeSpan.FromSeconds(0.3);
         private int currentFrame = 0;
 
         public MainWindowViewModel ViewModel
@@ -50,9 +50,9 @@ namespace StarCo
 
             ViewModel = new MainWindowViewModel(new ColonyController(colony));
 
-            System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+            System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer(System.Windows.Threading.DispatcherPriority.Send);
             dispatcherTimer.Tick += new EventHandler(OnUpdate);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            dispatcherTimer.Interval = timePerFrame;
             dispatcherTimer.Start();
         }
 
