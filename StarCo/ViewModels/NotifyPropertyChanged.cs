@@ -14,6 +14,12 @@ namespace StarCo.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public string PropertyName<T>(Expression<Func<T>> expression)
+        {
+            var body = (MemberExpression)expression.Body;
+            return body.Member.Name;
+        }
+
         public void FirePropertyChanged<T>(Expression<Func<T>> expression)
         {
             var body = (MemberExpression)expression.Body;
@@ -28,5 +34,15 @@ namespace StarCo.ViewModels
                 handler(this, new PropertyChangedEventArgs(property));
             }
         }
+    }
+
+    public static class NotifyPropertyChangedExtension
+    {
+        //public static string PropertyName<T, R>(this T t, Expression<Func<R>> expression)
+        //{
+        //    var body = (MemberExpression)expression.Body;
+        //    return body.Member.Name;
+        //}
+
     }
 }

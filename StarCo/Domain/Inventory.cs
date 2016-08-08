@@ -12,14 +12,6 @@ namespace StarCo.Domain
     [DataContract]
     public class Inventory
     {
-        public Inventory(string name, int size, Storage storage)
-        {
-            Name = name;
-            Size = size;
-            Storage = storage;
-            Quantity = 0;
-        }
-
         [DataMember]
         public string Name { get; private set; }
         [DataMember]
@@ -28,6 +20,14 @@ namespace StarCo.Domain
         public int Size { get; private set; }
         [DataMember]
         public Storage Storage { get; private set; }
+
+        public Inventory(string name, int size, Storage storage)
+        {
+            Name = name;
+            Size = size;
+            Storage = storage;
+            Quantity = 0;
+        }
 
         public bool Add(int quantity)
         {

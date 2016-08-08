@@ -1,5 +1,6 @@
 ﻿using StarCo.Domain.Factories;
 using StarCo.Domain.Improvements;
+using StarCo.Domain.State;
 using StarCo.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -16,10 +17,19 @@ namespace StarCo.Domain.Workers
     public class BasicWorker : DynamicProducerBase, IWorker
     {
         [DataMember]
-        public Colony Colony { get; private set; }
-        public BasicWorker(Colony colony) : base(10)
+        private BasicWorkerState state;
+
+        public BasicWorker(Colony colony)
+            : base(10)
         {
+            state = new BasicWorkerState();
             Colony = colony;
+        }
+
+        public Colony Colony 
+        {
+            get { return state.Colony; }
+            private set { state.Colony = value; }
         }
 
         public void Tick()
@@ -58,7 +68,7 @@ namespace StarCo.Domain.Workers
                 Detail = base.CurrentProduction,
                 SpriteUri = ObjectFactory.AssetName("BasicWorker"),
                 Tokens = new string(Enumerable.Repeat<char>('o', base.ProductionCounter).ToArray()),
-                ChangeProduction = new CommandHandler<BasicWorkerItemTaskViewModel>(vm => SetProduction(vm.SelectedProductionOption.Key))
+                //ChangeProduction = new CommandHandler<BasicWorkerItemTaskViewModel>(vm => SetProduction(vm.SelectedProductionOption.Key))
             };
             return result;
         }

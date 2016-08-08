@@ -23,13 +23,13 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
-                            <TextBlock Text="{Binding Label}"/>
+                            <Button Command="{Binding Click}" Content="{Binding Label}" CommandParameter="{Binding}" />
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
 
-            <Button Command="{Binding ChangeProduction}" Content="Change Production" CommandParameter="{Binding}" />
+            
         </StackPanel>
     </DataTemplate>
 </ResourceDictionary>

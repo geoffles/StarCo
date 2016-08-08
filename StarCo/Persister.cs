@@ -19,7 +19,7 @@ namespace StarCo
             {
                 typeof(BasicMine),
                 typeof(BasicWorker),
-
+                typeof(BasicQuarry)
             });
 
             using (var stream = new FileStream("Save.xml", FileMode.Create))

@@ -56,6 +56,10 @@
     </ApplicationDefinition>
     <Compile Include="ColonyTemplateSelector.cs" />
     <Compile Include="CommandHandler.cs" />
+    <Compile Include="Domain\Improvements\BasicQuarry.cs" />
+    <Compile Include="Domain\State\BasicWorkerState.cs" />
+    <Compile Include="Domain\State\DynamicProducerBaseState.cs" />
+    <Compile Include="Domain\State\SimpleProducerBaseState.cs" />
     <Compile Include="Persister.cs" />
     <Compile Include="ViewModels\BasicWorkerViewModel.cs" />
     <Compile Include="ViewModels\ColonyItemViewModel.cs" />
@@ -95,7 +99,7 @@
     <Compile Include="Domain\Improvements\BasicMine.cs" />
     <Compile Include="Domain\Colony.cs" />
     <Compile Include="Domain\IImprovement.cs" />
-    <Compile Include="Domain\Improvements\SimpleProducerImprovementBase.cs" />
+    <Compile Include="Domain\Improvements\SimpleProducerBase.cs" />
     <Compile Include="Domain\Inventory.cs" />
     <Compile Include="Domain\Storage.cs" />
     <Compile Include="Domain\StorageContainer.cs" />
@@ -147,6 +151,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Gold.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\BasicQuarry.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

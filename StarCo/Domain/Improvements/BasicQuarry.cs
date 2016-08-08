@@ -10,30 +10,30 @@ using System.Threading.Tasks;
 namespace StarCo.Domain.Improvements
 {
     [DataContract]
-    public class BasicMine : SimpleProducerBase, IImprovement
+    public class BasicQuarry : SimpleProducerBase, IImprovement
     {
         [DataMember]
         public Colony Colony { get; private set; }
 
-        private BasicMine(string productType) : base(
+        private BasicQuarry(string productType) : base(
             productType: productType, 
             productionThreshold: 3, 
             productionAmount: 1)
         {}
 
 
-        public static BasicMine Gold()
+        public static BasicQuarry Limestone()
         {
-            return new BasicMine("gold");
+            return new BasicQuarry("limestone");
         }
 
         public ColonyItemViewModel ToColonyItemViewModel()
         {
             return new ColonyItemViewModel
             {
-                Label = "Basic Mine",
+                Label = "Basic Quarry",
                 Detail = string.Join(",", ProductType),
-                SpriteUri = ObjectFactory.AssetName("BasicMine"),
+                SpriteUri = ObjectFactory.AssetName("BasicQuarry"),
                 Tokens = new string(Enumerable.Repeat<char>('o', ProductionCounter).ToArray())
             };
         }

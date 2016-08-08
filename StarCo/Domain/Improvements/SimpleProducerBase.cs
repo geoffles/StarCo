@@ -8,19 +8,22 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StarCo.Domain
+namespace StarCo.Domain.Improvements
 {
     [DataContract]
-    public abstract class DynamicProducerBase : NotifyPropertyChanged
+    public abstract class SimpleProducerBase : NotifyPropertyChanged
     {
         [DataMember]
-        private DynamicProducerBaseState state;
+        private SimpleProducerBaseState state;
 
-        protected DynamicProducerBase(int maxProductionCounter)
+        protected SimpleProducerBase(string productType, int productionThreshold, int productionAmount)
         {
-            state = new DynamicProducerBaseState();
-            MaxProductionCounter = maxProductionCounter;
+            state = new SimpleProducerBaseState();
+            ProductionThreshold = productionThreshold;
+            ProductType = productType;
+            ProductionAmount = productionAmount;
         }
+
 
         public string CurrentProduction
         {
@@ -42,20 +45,33 @@ namespace StarCo.Domain
             }
         }
 
-        public int MaxProductionCounter 
-        {
-            get { return state.MaxProductionCounter; }
-            private set { state.MaxProductionCounter = value; } 
+        public int ProductionAmount 
+        { 
+            get { return state.ProductionAmount; } 
+            private set { state.ProductionAmount = value; } 
         }
+
+        protected int ProductionThreshold
+        { 
+            get { return state.ProductionThreshold; }
+            private set { state.ProductionThreshold = value; }
+        }
+
+        public string ProductType 
+        {
+            get { return state.ProductType; }
+            private set { state.ProductType = value; } 
+        }
+
+        protected abstract bool CheckProductionSpace();
+
+        protected abstract void AllocateProduction();
 
         protected void DoProduction()
         {
-            if (ProductionCounter < MaxProductionCounter)
-            {
-                ProductionCounter++;
-            }
+            ProductionCounter++;
 
-            if (!String.IsNullOrEmpty(CurrentProduction))
+            if (!String.IsNullOrEmpty(ProductType))
             {
                 DoProductionInternal();
             }
@@ -63,8 +79,7 @@ namespace StarCo.Domain
 
         private void DoProductionInternal()
         {
-
-            int productionThreshold = ObjectFactory.ProductionLookup().GetProductionTimeFor(CurrentProduction);
+            int productionThreshold = ObjectFactory.ProductionLookup().GetProductionTimeFor(ProductType);
             if (ProductionCounter >= productionThreshold)
             {
                 if (CheckProductionSpace())
@@ -74,9 +89,5 @@ namespace StarCo.Domain
                 }
             }
         }
-
-        protected abstract bool CheckProductionSpace();
-
-        protected abstract void AllocateProduction();
     }
 }

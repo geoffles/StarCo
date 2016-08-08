@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 namespace StarCo.Domain
 {
     [DataContract(IsReference=true)]
-    public class Storage//: IImprovement
+    public class Storage
     {
         [DataMember]
         public IList<StorageContainer> Containers { get; private set; }
-        //[DataMember]
+        [DataMember]
         public IList<Habitat> Habitats { get; private set; }
         [DataMember]
         public long Size { get; private set; }
@@ -47,11 +47,6 @@ namespace StarCo.Domain
                 return true;
             }
             return false;
-        }
-
-        public void Tick(Colony colony)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -48,8 +48,8 @@ namespace StarCo
             colony.AddWorker(new BasicWorker(colony));
 
             var mine = ObjectFactory.ImprovementFactory().BuildImprovement("basicmine");
-            colony.Improvements.Add(mine);
-            ((BasicMine)mine).SetColony(colony);
+            colony.AddImprovement(mine);
+            
 
 
 

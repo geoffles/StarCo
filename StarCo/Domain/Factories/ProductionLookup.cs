@@ -23,7 +23,9 @@ namespace StarCo.Domain.Factories
                 { "mediumstorage", new Production{Time = 10, Size = 0} },
                 { "largestorage", new Production{Time = 15, Size = 0} },
                 { "basicmine", new Production{Time = 10, Size = 0 } },
-                { "gold", new Production{Time = 3, Size = 1} }
+                { "basicquarry", new Production{Time = 10, Size = 0 } },
+                { "gold", new Production{Time = 3, Size = 1} },
+                { "limestone", new Production{Time = 3, Size = 1} }
             };
         }
 

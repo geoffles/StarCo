@@ -10,31 +10,51 @@ namespace StarCo.ViewModels
 {
     public class BasicWorkerItemTaskViewModel : ColonyItemViewModel
     {
+        public class ProductionOptionItem
+        {
+            public string Key { get; set; }
+            public string Label { get; set; }
+            public ICommand Click { get; set; }
+            public BasicWorker Target {get; private set;}
+
+            public ProductionOptionItem(string key, string label, BasicWorker target)
+            {
+                Key = key; 
+                Label = label;
+                Target = target;
+                Click = new CommandHandler<ProductionOptionItem>(vm => vm.Apply());
+            }
+
+            public void Apply()
+            {
+                Target.SetProduction(Key);
+            }
+        }
+
         public BasicWorkerItemTaskViewModel(BasicWorker recieveUpdatesFrom)
         {
             recieveUpdatesFrom.PropertyChanged += (s, e) =>
             {
-                if (e.PropertyName == "CurrentProduction")
+                if (e.PropertyName == PropertyName(() => recieveUpdatesFrom.CurrentProduction))
                 {
                     Detail = recieveUpdatesFrom.CurrentProduction;
                 }
-                if (e.PropertyName == "ProductionCounter")
+                if (e.PropertyName == PropertyName(() => recieveUpdatesFrom.ProductionCounter))
                 {
                     Tokens = new string(Enumerable.Repeat<char>('o', recieveUpdatesFrom.ProductionCounter).ToArray());
                 }
             };
 
-            ProductionOptions = new List<ListItem>
+            ProductionOptions = new List<ProductionOptionItem>
             {
-                new ListItem("smallstorage", "Storage"),
-                new ListItem("basicmine", "Mine")
+                new ProductionOptionItem("smallstorage", "Storage", recieveUpdatesFrom),
+                new ProductionOptionItem("basicmine", "Mine", recieveUpdatesFrom),
+                new ProductionOptionItem("basicquarry", "Quarry", recieveUpdatesFrom)
             };
         }
 
-        public ICommand ChangeProduction { get; set; }
-
-        public ListItem SelectedProductionOption { get; set; }
-        public List<ListItem> ProductionOptions { get; set; }
+        public ProductionOptionItem SelectedProductionOption { get; set; }
+        public List<ProductionOptionItem> ProductionOptions { get; set; }
         
     }
 
