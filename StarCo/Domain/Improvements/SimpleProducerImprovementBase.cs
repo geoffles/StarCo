@@ -42,12 +42,12 @@ namespace StarCo.Domain.Improvements
         [DataMember]
         protected int ProductionThreshold { get; private set; }
         [DataMember]
-        public IList<string> ProductTypes { get; private set; }
+        public string ProductType { get; private set; }
 
-        protected SimpleProducerBase(IList<string> productTypes, int productionThreshold, int productionAmount)
+        protected SimpleProducerBase(string productType, int productionThreshold, int productionAmount)
         {
             ProductionThreshold = productionThreshold;
-            ProductTypes = productTypes;
+            ProductType = productType;
             ProductionAmount = productionAmount;
         }
 
@@ -59,7 +59,7 @@ namespace StarCo.Domain.Improvements
         {
             ProductionCounter++;
 
-            if (!String.IsNullOrEmpty(CurrentProduction))
+            if (!String.IsNullOrEmpty(ProductType))
             {
                 DoProductionInternal();
             }
@@ -67,8 +67,7 @@ namespace StarCo.Domain.Improvements
 
         private void DoProductionInternal()
         {
-
-            int productionThreshold = ObjectFactory.ProductionLookup().GetProductionTimeFor(CurrentProduction);
+            int productionThreshold = ObjectFactory.ProductionLookup().GetProductionTimeFor(ProductType);
             if (ProductionCounter >= productionThreshold)
             {
                 if (CheckProductionSpace())

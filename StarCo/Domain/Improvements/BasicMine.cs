@@ -14,8 +14,8 @@ namespace StarCo.Domain.Improvements
     {
         public Colony Colony { get; private set; }
 
-        private BasicMine(IList<string> productTypes) : base(
-            productTypes: productTypes, 
+        private BasicMine(string productType) : base(
+            productType: productType, 
             productionThreshold: 3, 
             productionAmount: 1)
         {}
@@ -23,7 +23,7 @@ namespace StarCo.Domain.Improvements
 
         public static BasicMine Gold()
         {
-            return new BasicMine(new List<string> { "gold" });
+            return new BasicMine("gold");
         }
 
         public ColonyItemViewModel ToColonyItemViewModel()
@@ -31,7 +31,7 @@ namespace StarCo.Domain.Improvements
             return new ColonyItemViewModel
             {
                 Label = "Basic Mine",
-                Detail = string.Join(",", ProductTypes),
+                Detail = string.Join(",", ProductType),
                 SpriteUri = ObjectFactory.AssetName("BasicMine"),
                 Tokens = new string(Enumerable.Repeat<char>('o', ProductionCounter).ToArray())
             };
@@ -54,12 +54,18 @@ namespace StarCo.Domain.Improvements
 
         protected override bool CheckProductionSpace()
         {
-            return Colony.Storage.Available >= ProductionAmount * ObjectFactory.ProductionLookup().GetProductionSpaceFor(this.CurrentProduction);
+            return Colony.Storage.Available >= ProductionAmount * ObjectFactory.ProductionLookup().GetProductionSpaceFor(this.ProductType);
         }
 
         protected override void AllocateProduction()
         {
-            Colony.Storage.Store(ProductionAmount);
+            //Colony.Storage.Store(ProductionAmount);
+            Colony.GetInventory(ProductType).Add(ProductionAmount);
+        }
+
+        public void SetColony(Colony colony)
+        {
+            Colony = colony;
         }
     }
 }

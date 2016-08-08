@@ -30,7 +30,7 @@ namespace StarCo.ViewModels
             {
                 var selectedIndex = ColonyItems.IndexOf(SelectedColonyItem);
                 SelectedSubCategory = SelectedSubCategory;
-                SelectedColonyItem = ColonyItems[selectedIndex];
+                if (selectedIndex > -1) { SelectedColonyItem = ColonyItems[selectedIndex]; }
             }
             StorageSpace= ColonyController.GetStorageSpaceUsage();
         }

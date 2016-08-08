@@ -1,6 +1,7 @@
 ﻿using StarCo.Controllers;
 using StarCo.Domain;
 using StarCo.Domain.Factories;
+using StarCo.Domain.Improvements;
 using StarCo.Domain.Workers;
 using StarCo.ViewModels;
 using System;
@@ -39,16 +40,20 @@ namespace StarCo
         {
             InitializeComponent();
 
-            //var colony = new Colony();
-            //colony.Storage.AddContainer(StorageContainer.Small());
-            //colony.Storage.AddContainer(StorageContainer.Small());
-            //colony.Storage.AddContainer(StorageContainer.Medium());
+            var colony = new Colony();
+            colony.Storage.AddContainer(StorageContainer.Small());
+            colony.Storage.AddContainer(StorageContainer.Small());
+            colony.Storage.AddContainer(StorageContainer.Medium());
             
-            //colony.AddWorker(new BasicWorker(colony));
-            
-            //colony.Improvements.Add(ObjectFactory.ImprovementFactory().BuildImprovement("basicmine"));
+            colony.AddWorker(new BasicWorker(colony));
 
-            var colony = new Persister().Load("Save.xml");
+            var mine = ObjectFactory.ImprovementFactory().BuildImprovement("basicmine");
+            colony.Improvements.Add(mine);
+            ((BasicMine)mine).SetColony(colony);
+
+
+
+            //var colony = new Persister().Load("Save.xml");
 
             ViewModel = new MainWindowViewModel(new ColonyController(colony));
 
