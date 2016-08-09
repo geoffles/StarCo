@@ -22,9 +22,9 @@ namespace StarCo.Domain.Improvements
         {}
 
 
-        public static BasicQuarry Limestone()
+        public static BasicQuarry Stone()
         {
-            return new BasicQuarry("limestone");
+            return new BasicQuarry("stone");
         }
 
         public ColonyItemViewModel ToColonyItemViewModel()

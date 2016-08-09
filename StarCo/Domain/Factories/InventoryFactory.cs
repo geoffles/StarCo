@@ -12,10 +12,10 @@ namespace StarCo.Domain.Factories
         {
             switch (inventoryType.ToLower())
             {
-                case "gold": return new Inventory("gold", 1, storage);
-                case "coal": return new Inventory("coal", 1, storage);
-                case "iron": return new Inventory("iron", 1, storage);
-                case "limestone": return new Inventory("limestone", 1, storage);
+                case "gold": return new Inventory("Gold", "gold", 1, storage);
+                case "coal": return new Inventory("Coal", "coal", 1, storage);
+                case "iron": return new Inventory("Iron", "iron", 1, storage);
+                case "stone": return new Inventory("Stone", "stone", 1, storage);
                 default: throw new ArgumentException("No inventory '" + inventoryType + "'");
             }
         }

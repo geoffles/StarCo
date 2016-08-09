@@ -49,7 +49,8 @@ namespace StarCo.ViewModels
             {
                 new ProductionOptionItem("smallstorage", "Storage", recieveUpdatesFrom),
                 new ProductionOptionItem("basicmine", "Mine", recieveUpdatesFrom),
-                new ProductionOptionItem("basicquarry", "Quarry", recieveUpdatesFrom)
+                new ProductionOptionItem("basicquarry", "Quarry", recieveUpdatesFrom),
+                new ProductionOptionItem(null, "None", recieveUpdatesFrom)
             };
         }
 

@@ -12,6 +12,7 @@ namespace StarCo.Domain.Factories
         {
             public int Time;
             public int Size;
+            public string Glyph;
         }
 
         private IDictionary<string, Production> ProductionTimes;
@@ -24,8 +25,8 @@ namespace StarCo.Domain.Factories
                 { "largestorage", new Production{Time = 15, Size = 0} },
                 { "basicmine", new Production{Time = 10, Size = 0 } },
                 { "basicquarry", new Production{Time = 10, Size = 0 } },
-                { "gold", new Production{Time = 3, Size = 1} },
-                { "limestone", new Production{Time = 3, Size = 1} }
+                { "gold", new Production{Glyph = "Gold", Time = 3, Size = 1} },
+                { "stone", new Production{Glyph = "Stone", Time = 3, Size = 1} }
             };
         }
 
@@ -43,6 +44,15 @@ namespace StarCo.Domain.Factories
             if (ProductionTimes.ContainsKey(resourceName))
             {
                 return ProductionTimes[resourceName].Size;
+            }
+            throw new ArgumentException("No Resource '" + resourceName + "'");
+        }
+
+        public string GetGlyphKeyFor(string resourceName)
+        {
+            if (ProductionTimes.ContainsKey(resourceName))
+            {
+                return ProductionTimes[resourceName].Glyph;
             }
             throw new ArgumentException("No Resource '" + resourceName + "'");
         }

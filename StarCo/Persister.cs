@@ -34,8 +34,9 @@ namespace StarCo
             {
                 typeof(BasicMine),
                 typeof(BasicWorker),
-
-            });
+                
+                typeof(BasicQuarry)
+            }, Int32.MaxValue, false, true, new CustomDataContractSurrogate());
 
             using (var stream = new FileStream(filename, FileMode.Open))
             {

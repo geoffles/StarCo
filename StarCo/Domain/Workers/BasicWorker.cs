@@ -67,8 +67,7 @@ namespace StarCo.Domain.Workers
                 Label = "Basic Worker",
                 Detail = base.CurrentProduction,
                 SpriteUri = ObjectFactory.AssetName("BasicWorker"),
-                Tokens = new string(Enumerable.Repeat<char>('o', base.ProductionCounter).ToArray()),
-                //ChangeProduction = new CommandHandler<BasicWorkerItemTaskViewModel>(vm => SetProduction(vm.SelectedProductionOption.Key))
+                Tokens = new string(Enumerable.Repeat<char>('o', base.ProductionCounter).ToArray())
             };
             return result;
         }

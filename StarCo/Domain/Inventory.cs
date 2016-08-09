@@ -15,16 +15,19 @@ namespace StarCo.Domain
         [DataMember]
         public string Name { get; private set; }
         [DataMember]
+        public string Key { get; private set; }
+        [DataMember]
         public int Quantity { get; private set; }
         [DataMember]
         public int Size { get; private set; }
         [DataMember]
         public Storage Storage { get; private set; }
 
-        public Inventory(string name, int size, Storage storage)
+        public Inventory(string name, string key, int size, Storage storage)
         {
             Name = name;
             Size = size;
+            Key = key;
             Storage = storage;
             Quantity = 0;
         }
@@ -53,11 +56,12 @@ namespace StarCo.Domain
 
         public ColonyItemViewModel ToColonyItemViewModel()
         {
+            string glyph = ObjectFactory.ProductionLookup().GetGlyphKeyFor(Key);
             return new ColonyItemViewModel
             {
-                Label = "Gold",
+                Label = Name,
                 Detail = Quantity.ToString(),
-                SpriteUri = ObjectFactory.AssetName("Gold"),
+                SpriteUri = ObjectFactory.AssetName(glyph),
                 Tokens = ""
             };
         }

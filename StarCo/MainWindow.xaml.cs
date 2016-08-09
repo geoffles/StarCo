@@ -53,7 +53,7 @@ namespace StarCo
 
 
 
-            //var colony = new Persister().Load("Save.xml");
+            colony = new Persister().Load("Save.xml");
 
             ViewModel = new MainWindowViewModel(new ColonyController(colony));
 

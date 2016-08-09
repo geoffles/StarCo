@@ -56,6 +56,7 @@
     </ApplicationDefinition>
     <Compile Include="ColonyTemplateSelector.cs" />
     <Compile Include="CommandHandler.cs" />
+    <Compile Include="CustomDataContractSurrogate.cs" />
     <Compile Include="Domain\Improvements\BasicQuarry.cs" />
     <Compile Include="Domain\State\BasicWorkerState.cs" />
     <Compile Include="Domain\State\DynamicProducerBaseState.cs" />
@@ -154,6 +155,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\BasicQuarry.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Stone.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
