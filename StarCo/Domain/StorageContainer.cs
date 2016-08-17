@@ -18,6 +18,8 @@ namespace StarCo.Domain
         public string SpriteUri { get; private set; }
         [DataMember]
         public long Size { get; private set; }
+        [DataMember]
+        public string ResourceKey { get; private set; }
 
         public ColonyItemViewModel ToColonyItemViewModel()
         {
@@ -35,7 +37,7 @@ namespace StarCo.Domain
             get { return this.GetType().Name.ToLower(); }
         }
 
-        private StorageContainer(int size, string label, string assetName)
+        private StorageContainer(int size, string key, string label, string assetName)
         {
             Size = size;
             Label = label;
@@ -44,17 +46,17 @@ namespace StarCo.Domain
 
         public static StorageContainer Small()
         {
-            return new StorageContainer(80, "Small Storage", "SmallStorage");
+            return new StorageContainer(80, "smallstorage", "Small Storage", "SmallStorage");
         }
 
         public static StorageContainer Medium()
         {
-            return new StorageContainer(320, "Medium Storage", "MediumStorage");
+            return new StorageContainer(320, "mediumstorage", "Medium Storage", "MediumStorage");
         }
 
         public static StorageContainer Large()
         {
-            return new StorageContainer(1280, "Large Storage", "LargeStorage");
+            return new StorageContainer(1280, "largestorage", "Large Storage", "LargeStorage");
         }
 
         public void Tick(Colony colony)
@@ -64,7 +66,7 @@ namespace StarCo.Domain
 
         public void Link(Colony colony)
         {
-            throw new NotImplementedException();
+            colony.Storage.AddContainer(this);
         }
     }
 }

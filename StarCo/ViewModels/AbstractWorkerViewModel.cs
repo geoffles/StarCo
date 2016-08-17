@@ -1,4 +1,5 @@
-﻿using StarCo.Domain.Factories;
+﻿using StarCo.Domain;
+using StarCo.Domain.Factories;
 using StarCo.Domain.Workers;
 using System;
 using System.Collections.Generic;
@@ -9,18 +10,19 @@ using System.Windows.Input;
 
 namespace StarCo.ViewModels
 {
-    public class BasicWorkerItemTaskViewModel : ColonyItemViewModel
+    public class AbstractWorkerItemTaskViewModel : ColonyItemViewModel
     {
         public class ProductionOptionItem : NotifyPropertyChanged
         {
             public string Key { get; set; }
             public string Label { get; set; }
             public ICommand Click { get; set; }
-            public BasicWorker Target {get; private set;}
+            public AbstractWorker Target {get; private set;}
+            
             private bool meetsRequirements;
             public bool MeetsRequirements
             {
-                get { return meetsRequirements; }
+                get { return Target.ValidateProductionRequirements(Key); }
                 set
                 {
                     meetsRequirements = value;
@@ -28,12 +30,11 @@ namespace StarCo.ViewModels
                 }
             }
 
-            public ProductionOptionItem(string key, string label, BasicWorker target)
+            public ProductionOptionItem(string key, string label, AbstractWorker target)
             {
                 Key = key; 
                 Label = label;
                 Target = target;
-                MeetsRequirements = true;
                 Click = new CommandHandler<ProductionOptionItem>(vm => vm.Apply());
             }
 
@@ -43,7 +44,12 @@ namespace StarCo.ViewModels
             }
         }
 
-        public BasicWorkerItemTaskViewModel(BasicWorker recieveUpdatesFrom, IList<string> productionOptions)
+        private string MakeTokens(int count)
+        {
+            return new string(Enumerable.Repeat<char>('o', count).ToArray());
+        }
+
+        public AbstractWorkerItemTaskViewModel(AbstractWorker recieveUpdatesFrom, IEnumerable<string> productionOptions)
         {
             recieveUpdatesFrom.PropertyChanged += (s, e) =>
             {
@@ -53,23 +59,20 @@ namespace StarCo.ViewModels
                 }
                 if (e.PropertyName == PropertyName(() => recieveUpdatesFrom.ProductionCounter))
                 {
-                    Tokens = new string(Enumerable.Repeat<char>('o', recieveUpdatesFrom.ProductionCounter).ToArray());
+                    Tokens = MakeTokens(recieveUpdatesFrom.ProductionCounter);
                 }
             };
 
             var lookup = ObjectFactory.ProductionLookup();
-            productionOptions.Select(key => new List<ProductionOptionItem>
-                {
-                    new ProductionOptionItem(key, lookup.GetLabelFor(key), recieveUpdatesFrom)
-                });
+            ProductionOptions = productionOptions
+                .Select(key => new ProductionOptionItem(key, lookup.GetLabelFor(key), recieveUpdatesFrom))
+                .Concat(new[] { new ProductionOptionItem(null, "None", recieveUpdatesFrom) })
+                .ToList();
 
-            ProductionOptions = new List<ProductionOptionItem>
-            {
-                new ProductionOptionItem("smallstorage", "Storage", recieveUpdatesFrom),
-                new ProductionOptionItem("basicmine", "Mine", recieveUpdatesFrom),
-                new ProductionOptionItem("basicquarry", "Quarry", recieveUpdatesFrom),
-                new ProductionOptionItem(null, "None", recieveUpdatesFrom)
-            };
+            Label = lookup.GetLabelFor(recieveUpdatesFrom.ResourceKey);
+            Detail = recieveUpdatesFrom.CurrentProduction;
+            SpriteUri = ObjectFactory.AssetName(lookup.GetGlyphKeyFor(recieveUpdatesFrom.ResourceKey));
+            Tokens = MakeTokens(recieveUpdatesFrom.ProductionCounter);
         }
 
         public ProductionOptionItem SelectedProductionOption { get; set; }

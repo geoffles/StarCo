@@ -45,7 +45,6 @@ namespace StarCo.Domain
         public void AddImprovement(IImprovement improvement)
         {
             this.Improvements.Add(improvement);
-            improvement.Link(this);
         }
 
         public void AddWorker(IWorker worker)

@@ -8,12 +8,21 @@ using System.Threading.Tasks;
 namespace StarCo.Domain.State
 {
     [DataContract]
-    public class BasicWorkerState
+    public class AbstractWorkerState
     {
         [DataMember]
         public Colony Colony { get; set; }
 
         [DataMember]
-        public IList<string> Produces { get; set; }
+        public string Sprite { get; set; }
+
+        [DataMember]
+        public IList<string> ProductionOptions { get; set; }
+
+        [DataMember]
+        public string ResourceKey { get; set; }
+
+        [DataMember]
+        public string SubCategoryKey { get; set; }
     }
 }

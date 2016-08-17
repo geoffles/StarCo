@@ -67,16 +67,17 @@ namespace StarCo.Domain
             int productionThreshold = ObjectFactory.ProductionLookup().GetProductionTimeFor(CurrentProduction);
             if (ProductionCounter >= productionThreshold)
             {
-                if (CheckProductionSpace())
+                if (CheckRequirements())
                 {
+                    ConsumePrerequisites();
                     AllocateProduction();
                     ProductionCounter -= productionThreshold;
                 }
             }
         }
 
-        protected abstract bool CheckProductionSpace();
-
+        protected abstract bool CheckRequirements();
         protected abstract void AllocateProduction();
+        protected abstract void ConsumePrerequisites();
     }
 }

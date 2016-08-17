@@ -19,14 +19,25 @@ namespace StarCo.Domain.Workers
         [DataMember]
         private BasicWorkerState state;
 
+        [DataMember]
+        public IList<string> Produces { get; private set; }
+
+        public string ResourceKey { get { return "basicworker"; } }
+
         public BasicWorker(Colony colony)
             : base(10)
         {
             state = new BasicWorkerState();
             Colony = colony;
+            Produces = new List<string>
+            {
+                "basicmine",
+                "basicquarry",
+                "smallstorage"
+            };
         }
 
-        public Colony Colony 
+        public Colony Colony
         {
             get { return state.Colony; }
             private set { state.Colony = value; }
@@ -37,7 +48,7 @@ namespace StarCo.Domain.Workers
             base.DoProduction();
         }
 
-        protected override bool CheckProductionSpace()
+        protected override bool CheckRequirements()
         {
             return true;
         }
@@ -45,24 +56,30 @@ namespace StarCo.Domain.Workers
         protected override void AllocateProduction()
         {
             var production = ObjectFactory.ImprovementFactory().BuildImprovement(base.CurrentProduction);
-            if (production is StorageContainer)
-            {
-                Colony.Storage.AddContainer((StorageContainer)production);
-            }
-            else if (production is Habitat)
-            {
-                throw new NotImplementedException();
-            }
-            else 
-            {
-                this.Colony.AddImprovement(production);
-            }
+            
+            production.Link(Colony);
             CurrentProduction = null;
+        }
+
+        protected override void ConsumePrerequisites()
+        {
+            var prerequisites = ObjectFactory.ProductionLookup().GetPrerequisitesFor(CurrentProduction);
+
+            prerequisites.All(p =>
+            {
+                p.Consume(Colony);
+                return true;
+            });
         }
 
         public ColonyItemViewModel ToColonyItemViewModel()
         {
-            var result = new BasicWorkerItemTaskViewModel(this)
+            var result = new BasicWorkerItemTaskViewModel(this, new List<string>
+                    {
+                        "smallstorage",
+                        "basicmine", 
+                        "basicquarry"
+                    })
             {
                 Label = "Basic Worker",
                 Detail = base.CurrentProduction,

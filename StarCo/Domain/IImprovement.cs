@@ -10,6 +10,7 @@ namespace StarCo.Domain
 
     public interface IImprovement
     {
+        string ResourceKey { get; }
         string SubCategoryKey { get; }
 
         ColonyItemViewModel ToColonyItemViewModel();

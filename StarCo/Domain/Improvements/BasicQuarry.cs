@@ -15,6 +15,8 @@ namespace StarCo.Domain.Improvements
         [DataMember]
         public Colony Colony { get; private set; }
 
+        public string ResourceKey { get { return "basicquarry"; } }
+
         private BasicQuarry(string productType) : base(
             productType: productType, 
             productionThreshold: 3, 
@@ -46,6 +48,7 @@ namespace StarCo.Domain.Improvements
         public void Link(Colony colony)
         {
             Colony = colony;
+            Colony.AddImprovement(this);
         }
 
         public void Tick(Colony colony)
@@ -55,7 +58,8 @@ namespace StarCo.Domain.Improvements
 
         protected override bool CheckProductionSpace()
         {
-            return Colony.Storage.Available >= ProductionAmount * ObjectFactory.ProductionLookup().GetProductionSpaceFor(this.ProductType);
+            var productionSpace = ObjectFactory.ProductionLookup().GetProductionSpaceFor(ProductType);
+            return productionSpace.CheckSpace(Colony);
         }
 
         protected override void AllocateProduction()

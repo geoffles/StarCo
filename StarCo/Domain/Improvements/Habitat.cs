@@ -11,6 +11,11 @@ namespace StarCo.Domain.Improvements
     [DataContract]
     public class Habitat : IImprovement
     {
+        [DataMember]
+        public Colony Colony { get; private set; }
+
+        public string ResourceKey { get { return "habitat"; } }
+
         public void Tick(Colony colony)
         {
             throw new NotImplementedException();
@@ -28,7 +33,9 @@ namespace StarCo.Domain.Improvements
 
         public void Link(Colony colony)
         {
-            throw new NotImplementedException();
+            Colony = colony;
+            //TODO: This should be encapsulated.
+            Colony.Storage.Habitats.Add(this);
         }
     }
 }

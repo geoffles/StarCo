@@ -13,7 +13,7 @@ namespace StarCo.Domain.Factories
         {
             switch (resourceName)
             {
-                case "smallstorage": return StorageContainer.Small();
+                case "smallstorage": return StorageContainer.Small(); 
                 case "mediumstorage": return StorageContainer.Medium();
                 case "largestorage": return StorageContainer.Large();
                 case "basicmine": return BasicMine.Gold();

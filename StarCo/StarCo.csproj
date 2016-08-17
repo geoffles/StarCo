@@ -57,11 +57,16 @@
     <Compile Include="ColonyTemplateSelector.cs" />
     <Compile Include="CommandHandler.cs" />
     <Compile Include="CustomDataContractSurrogate.cs" />
+    <Compile Include="Domain\Factories\ProductionSpace.cs" />
+    <Compile Include="Domain\Workers\AbstractWorker.cs" />
     <Compile Include="Domain\Improvements\BasicQuarry.cs" />
+    <Compile Include="Domain\Prerequisite.cs" />
+    <Compile Include="Domain\State\AbstractWorkerState.cs" />
     <Compile Include="Domain\State\BasicWorkerState.cs" />
     <Compile Include="Domain\State\DynamicProducerBaseState.cs" />
     <Compile Include="Domain\State\SimpleProducerBaseState.cs" />
     <Compile Include="Persister.cs" />
+    <Compile Include="ViewModels\AbstractWorkerViewModel.cs" />
     <Compile Include="ViewModels\BasicWorkerViewModel.cs" />
     <Compile Include="ViewModels\ColonyItemViewModel.cs" />
     <Compile Include="ViewModels\ListItem.cs" />
