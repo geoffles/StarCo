@@ -14,5 +14,6 @@ namespace StarCo.Domain
         string SubCategoryKey { get; }
 
         void Tick();
+        void Link(Colony colony);
     }
 }

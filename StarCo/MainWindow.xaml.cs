@@ -41,11 +41,21 @@ namespace StarCo
             InitializeComponent();
 
             var colony = new Colony();
-            colony.Storage.AddContainer(StorageContainer.Small());
-            colony.Storage.AddContainer(StorageContainer.Small());
-            colony.Storage.AddContainer(StorageContainer.Medium());
-            
-            colony.AddWorker(new BasicWorker(colony));
+            StorageContainer.Small().Link(colony);
+            StorageContainer.Small().Link(colony);
+            StorageContainer.Medium().Link(colony);
+
+
+            //new BasicWorker(colony).Link(colony);
+            var abstractWorker = new AbstractWorker(new Domain.State.AbstractWorkerState
+            {
+                ResourceKey = "basicworker",
+                ProductionOptions = ObjectFactory.ProductionLookup().GetProductionOptionsFor("basicworker").ToList(),
+                Sprite = ObjectFactory.AssetName(ObjectFactory.ProductionLookup().GetGlyphKeyFor("basicworker")),
+                SubCategoryKey = "basicworker"
+            }, 10);
+
+            abstractWorker.Link(colony);
 
             var mine = ObjectFactory.ImprovementFactory().BuildImprovement("basicmine");
             colony.AddImprovement(mine);
@@ -53,7 +63,7 @@ namespace StarCo
 
 
 
-            colony = new Persister().Load("Save.xml");
+            //colony = new Persister().Load("Save.xml");
 
             ViewModel = new MainWindowViewModel(new ColonyController(colony));
 

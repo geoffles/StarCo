@@ -5,6 +5,7 @@
     
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="ActionWindowTemplates/BasicWorker.xaml" />
+        <ResourceDictionary Source="ActionWindowTemplates/AbstractWorker.xaml" />
         <ResourceDictionary Source="ActionWindowTemplates/BasicMine.xaml" />
     </ResourceDictionary.MergedDictionaries>
     

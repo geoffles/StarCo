@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:ns="clr-namespace:StarCo.ViewModels">
-    
+
     <DataTemplate DataType="{x:Type ns:AbstractWorkerItemTaskViewModel}">
         <StackPanel>
             <TextBlock Text="Foo" />

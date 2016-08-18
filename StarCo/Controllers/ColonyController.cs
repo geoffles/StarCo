@@ -99,7 +99,7 @@ namespace StarCo.Controllers
         {
             var workers = Colony
                 .Workers
-                .GroupBy(p => p.GetType().Name)
+                .GroupBy(p => p.SubCategoryKey)
                 .Where(p => p.Key.ToLower() == subcategory.Key)
                 .SelectMany(p => p)
                 .Select(p => p.ToColonyItemViewModel())

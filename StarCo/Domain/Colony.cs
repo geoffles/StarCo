@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using StarCo.Domain.Factories;
 using System.Runtime.Serialization;
+using StarCo.Friends;
 
 namespace StarCo.Domain
 {
@@ -47,7 +48,8 @@ namespace StarCo.Domain
             this.Improvements.Add(improvement);
         }
 
-        public void AddWorker(IWorker worker)
+        [Friend(typeof(IWorker))]
+        private void AddWorker(IWorker worker)
         {
             this.Workers.Add(worker);
         }

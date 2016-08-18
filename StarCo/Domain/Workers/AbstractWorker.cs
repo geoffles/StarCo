@@ -1,5 +1,6 @@
 ﻿using StarCo.Domain.Factories;
 using StarCo.Domain.State;
+using StarCo.Friends;
 using StarCo.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,8 @@ using System.Threading.Tasks;
 
 namespace StarCo.Domain.Workers
 {
-    public class AbstractWorker : DynamicProducerBase, IWorker
+    [DataContract]    
+    public class AbstractWorker : WorkerBase, IWorker
     {
         [DataMember]
         private AbstractWorkerState state;
@@ -20,7 +22,7 @@ namespace StarCo.Domain.Workers
             this.state = state;
         }
 
-        public Colony Colony { get { return state.Colony; } }
+        public Colony Colony { get { return state.Colony; } private set { state.Colony = value; } }
         public IList<string> ProductionOptions { get { return state.ProductionOptions; } }
 
         public void SetProduction(string key)
@@ -30,7 +32,11 @@ namespace StarCo.Domain.Workers
 
         public bool ValidateProductionRequirements(string key)
         {
-            var prerequisites = ObjectFactory.ProductionLookup().GetPrerequisitesFor(CurrentProduction);
+            if (string.IsNullOrEmpty(key))
+            {
+                return true;
+            }
+            var prerequisites = ObjectFactory.ProductionLookup().GetPrerequisitesFor(key);
 
             return prerequisites.All(p => p.Check(Colony));
         }
@@ -83,5 +89,12 @@ namespace StarCo.Domain.Workers
         {
             base.DoProduction();
         }
+
+        public void Link(Colony colony)
+        {
+            Colony = colony;
+            new ColonyProxy(Colony).AddWorker(this);
+        }
+
     }
 }

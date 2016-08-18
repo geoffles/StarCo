@@ -50,6 +50,7 @@ namespace StarCo.Domain.Factories
             public string Glyph;
             public SpaceAlloc SpaceAlloc;
             public IList<Prerequisite> Prerequisites;
+            public IList<string> ProductionOptions;
         }
 
         private IDictionary<string, Production> ProductionDefinitions;
@@ -64,7 +65,8 @@ namespace StarCo.Domain.Factories
                         Time = 5, 
                         Size = 0,
                         SpaceAlloc = ProductionLookup.SpaceAlloc.Improvements,
-                        Prerequisites = Requires(Consume(5, "stone")) 
+                        Prerequisites = Requires(Consume(5, "stone")),
+                        ProductionOptions = new string[0]
                     }
                 }, { "mediumstorage", new Production
                     {
@@ -72,7 +74,8 @@ namespace StarCo.Domain.Factories
                         Time = 10, 
                         Size = 0, 
                         SpaceAlloc = ProductionLookup.SpaceAlloc.Improvements,
-                        Prerequisites = Requires(Consume(50, "stone"), Upgrades("smallstorage")) 
+                        Prerequisites = Requires(Consume(50, "stone"), Upgrades("smallstorage")),
+                        ProductionOptions = new string[0]
                     }
                 }, { "largestorage", new Production
                     {
@@ -80,7 +83,8 @@ namespace StarCo.Domain.Factories
                         Time = 15, 
                         Size = 0, 
                         SpaceAlloc = ProductionLookup.SpaceAlloc.Improvements,
-                        Prerequisites = Requires(Consume(500, "stone"), Upgrades("mediumstorage"))
+                        Prerequisites = Requires(Consume(500, "stone"), Upgrades("mediumstorage")),
+                        ProductionOptions = new string[0]
                     } 
                 }, { "basicmine", new Production
                     {
@@ -88,7 +92,8 @@ namespace StarCo.Domain.Factories
                         Time = 10, 
                         Size = 0, 
                         SpaceAlloc = ProductionLookup.SpaceAlloc.Improvements,
-                        Prerequisites = Requires(Consume(50, "stone"), Depends(1,"basicquarry")) 
+                        Prerequisites = Requires(Consume(50, "stone"), Depends(1,"basicquarry")),
+                        ProductionOptions = new string[] { "gold" }
                     } 
                 }, { "basicquarry", new Production
                     {
@@ -96,7 +101,8 @@ namespace StarCo.Domain.Factories
                         Time = 10,
                         Size = 0,
                         SpaceAlloc = ProductionLookup.SpaceAlloc.Improvements,
-                        Prerequisites = Requires()
+                        Prerequisites = Requires(),
+                        ProductionOptions = new string[] { "stone" }
                     }
                 }, { "gold", new Production
                     {
@@ -105,7 +111,8 @@ namespace StarCo.Domain.Factories
                         Time = 3,
                         Size = 1,
                         SpaceAlloc = ProductionLookup.SpaceAlloc.Storage,
-                        Prerequisites = None()
+                        Prerequisites = None(),
+                        ProductionOptions = new string[0]
                     }
                 }, { "stone", new Production
                     {
@@ -114,7 +121,8 @@ namespace StarCo.Domain.Factories
                         Time = 3,
                         Size = 1,
                         SpaceAlloc = ProductionLookup.SpaceAlloc.Storage,
-                        Prerequisites = None()
+                        Prerequisites = None(),
+                        ProductionOptions = new string[0]
                     } 
                 }, { "basicworker", new Production
                     {
@@ -123,10 +131,23 @@ namespace StarCo.Domain.Factories
                         Time = 3,
                         Size = 1,
                         SpaceAlloc = ProductionLookup.SpaceAlloc.Living,
-                        Prerequisites = Requires(Consume(10, "iron"), Consume(1, "livingspace"), Depends(1, "colonyship"))
+                        Prerequisites = Requires(Consume(10, "iron"), Consume(1, "livingspace"), Depends(1, "colonyship")),
+                        ProductionOptions = new string[] { "basicmine", "basicquarry", "smallstorage" }
                     }
                 }
             };
+        }
+
+        public IEnumerable<string> GetProductionOptionsFor(string resourceName)
+        {
+            if (!ProductionDefinitions.ContainsKey(resourceName))
+            {
+                throw new ArgumentException("No Resource '" + resourceName + "'");
+            }
+
+            Production production = ProductionDefinitions[resourceName];
+
+            return production.ProductionOptions;
         }
 
         public ProductionSpace GetProductionSpaceFor(string resourceName)

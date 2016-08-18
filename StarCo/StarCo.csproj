@@ -58,6 +58,8 @@
     <Compile Include="CommandHandler.cs" />
     <Compile Include="CustomDataContractSurrogate.cs" />
     <Compile Include="Domain\Factories\ProductionSpace.cs" />
+    <Compile Include="Domain\Workers\WorkerBase.cs" />
+    <Compile Include="Friends\Friend.cs" />
     <Compile Include="Domain\Workers\AbstractWorker.cs" />
     <Compile Include="Domain\Improvements\BasicQuarry.cs" />
     <Compile Include="Domain\Prerequisite.cs" />
@@ -65,15 +67,20 @@
     <Compile Include="Domain\State\BasicWorkerState.cs" />
     <Compile Include="Domain\State\DynamicProducerBaseState.cs" />
     <Compile Include="Domain\State\SimpleProducerBaseState.cs" />
+    <Compile Include="Friends\FriendAttribute.cs" />
     <Compile Include="Persister.cs" />
-    <Compile Include="ViewModels\AbstractWorkerViewModel.cs" />
-    <Compile Include="ViewModels\BasicWorkerViewModel.cs" />
+    <Compile Include="ViewModels\AbstractWorkerItemTaskViewModel.cs" />
+    <Compile Include="ViewModels\BasicWorkerItemTaskViewModel.cs" />
     <Compile Include="ViewModels\ColonyItemViewModel.cs" />
     <Compile Include="ViewModels\ListItem.cs" />
     <Compile Include="ViewModels\NotifyPropertyChanged.cs" />
     <Page Include="ActionWindowTemplates.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ActionWindowTemplates\AbstractWorker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="ActionWindowTemplates\BasicMine.xaml">
       <SubType>Designer</SubType>
@@ -163,6 +170,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Stone.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

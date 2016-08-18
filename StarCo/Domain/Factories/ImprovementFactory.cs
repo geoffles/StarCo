@@ -1,4 +1,5 @@
 ﻿using StarCo.Domain.Improvements;
+using StarCo.Domain.Workers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace StarCo.Domain.Factories
                 case "mediumstorage": return StorageContainer.Medium();
                 case "largestorage": return StorageContainer.Large();
                 case "basicmine": return BasicMine.Gold();
-                case "basicquarry": return BasicQuarry.Stone();
+                case "basicquarry": return BasicQuarry.Stone();               
                 default: throw new ArgumentException("No resource '" + resourceName + "'");
             }
         }

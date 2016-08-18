@@ -19,7 +19,8 @@ namespace StarCo
             {
                 typeof(BasicMine),
                 typeof(BasicWorker),
-                typeof(BasicQuarry)
+                typeof(BasicQuarry),
+                typeof(AbstractWorker),
             });
 
             using (var stream = new FileStream("Save.xml", FileMode.Create))
@@ -34,7 +35,7 @@ namespace StarCo
             {
                 typeof(BasicMine),
                 typeof(BasicWorker),
-                
+                typeof(AbstractWorker),
                 typeof(BasicQuarry)
             }, Int32.MaxValue, false, true, new CustomDataContractSurrogate());
 
