@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace StarCo.Domain.Improvements
 {
     [DataContract]
-    public class BasicQuarry : SimpleProducerBase, IImprovement
+    public class BasicQuarry : ImprovementBase, IImprovement
     {
         [DataMember]
         public Colony Colony { get; private set; }
@@ -48,7 +48,7 @@ namespace StarCo.Domain.Improvements
         public void Link(Colony colony)
         {
             Colony = colony;
-            Colony.AddImprovement(this);
+            new ColonyFriend(Colony).AddImprovement(this);
         }
 
         public void Tick(Colony colony)

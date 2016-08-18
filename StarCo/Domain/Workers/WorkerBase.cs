@@ -11,9 +11,9 @@ namespace StarCo.Domain.Workers
     [DataContract]
     public abstract class WorkerBase : DynamicProducerBase
     {
-        protected class ColonyProxy : Friend
+        protected class ColonyFriend : Friend
         {
-            public ColonyProxy(Colony colony) : base(colony) { }
+            public ColonyFriend(Colony colony) : base(colony) { }
 
             public void AddWorker(IWorker worker)
             {

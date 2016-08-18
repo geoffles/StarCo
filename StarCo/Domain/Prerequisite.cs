@@ -44,7 +44,7 @@ namespace StarCo.Domain
                 var inventory = colony.GetInventory(Key);
                 inventory.Consume(Amount);
             }
-        }
+        }   
     }
 
     public class ImprovementPrerequisite : Prerequisite

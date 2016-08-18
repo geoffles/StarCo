@@ -75,9 +75,34 @@ namespace StarCo.ViewModels
             Tokens = MakeTokens(recieveUpdatesFrom.ProductionCounter);
         }
 
-        public ProductionOptionItem SelectedProductionOption { get; set; }
         public List<ProductionOptionItem> ProductionOptions { get; set; }
-        
+
+        private ProductionOptionItem selectedProductionOption;
+        public ProductionOptionItem SelectedProductionOption
+        {
+            get { return selectedProductionOption; }
+            set
+            {
+                selectedProductionOption = value;
+                FirePropertyChanged(() => SelectedProductionOption);
+
+                if (value != null)
+                {
+                    Prerequisites = ObjectFactory.ProductionLookup().GetPrerequisitesFor(value.Key).ToList();
+                }
+            }
+        }
+
+        private List<Prerequisite> prerequisites;
+        public List<Prerequisite> Prerequisites
+        {
+            get { return prerequisites; }
+            set
+            {
+                prerequisites = value;
+                FirePropertyChanged(() => Prerequisites);
+            }
+        }
     }
 
 }

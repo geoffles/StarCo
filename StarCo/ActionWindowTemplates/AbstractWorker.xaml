@@ -22,12 +22,30 @@
 
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel>
-                            <Button Command="{Binding Click}" IsEnabled="{Binding MeetsRequirements}" Content="{Binding Label}" CommandParameter="{Binding}" />
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Label}"/>
+                            <Button Command="{Binding Click}" IsEnabled="{Binding MeetsRequirements}" Content=">" CommandParameter="{Binding}" />
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            
+            <ItemsControl ItemsSource="{Binding Prerequisites}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="5*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="{Binding Key}" />
+                            <TextBlock Grid.Column="1" Text="{Binding Amount}" />
+                            <TextBlock Grid.Column="2" Text="{Binding Consumes}" />
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
 
             
         </StackPanel>

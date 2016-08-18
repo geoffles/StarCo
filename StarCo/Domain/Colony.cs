@@ -43,7 +43,8 @@ namespace StarCo.Domain
             return newInventory;
         }
 
-        public void AddImprovement(IImprovement improvement)
+        [Friend(typeof(IImprovement))]
+        private void AddImprovement(IImprovement improvement)
         {
             this.Improvements.Add(improvement);
         }

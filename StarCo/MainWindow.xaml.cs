@@ -58,10 +58,9 @@ namespace StarCo
             abstractWorker.Link(colony);
 
             var mine = ObjectFactory.ImprovementFactory().BuildImprovement("basicmine");
-            colony.AddImprovement(mine);
-            
+            mine.Link(colony);
 
-
+            colony.GetInventory("stone").Add(50);
 
             //colony = new Persister().Load("Save.xml");
 

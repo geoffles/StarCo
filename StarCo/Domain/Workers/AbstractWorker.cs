@@ -93,7 +93,7 @@ namespace StarCo.Domain.Workers
         public void Link(Colony colony)
         {
             Colony = colony;
-            new ColonyProxy(Colony).AddWorker(this);
+            new ColonyFriend(Colony).AddWorker(this);
         }
 
     }

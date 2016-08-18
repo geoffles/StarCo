@@ -58,6 +58,7 @@
     <Compile Include="CommandHandler.cs" />
     <Compile Include="CustomDataContractSurrogate.cs" />
     <Compile Include="Domain\Factories\ProductionSpace.cs" />
+    <Compile Include="Domain\Improvements\ImprovementBase.cs" />
     <Compile Include="Domain\Workers\WorkerBase.cs" />
     <Compile Include="Friends\Friend.cs" />
     <Compile Include="Domain\Workers\AbstractWorker.cs" />

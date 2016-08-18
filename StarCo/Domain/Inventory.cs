@@ -47,7 +47,7 @@ namespace StarCo.Domain
         {
             if (quantity <= Quantity)
             {
-                Quantity = -quantity;
+                Quantity -= quantity;
                 Storage.Free(Size * quantity);
                 return true;
             }

@@ -43,7 +43,7 @@ namespace StarCo.Domain
         {
             if (Available >= quantity)
             {
-                Available = Available - quantity;
+                Available -= quantity;
                 return true;
             }
             return false;
