@@ -44,6 +44,7 @@ namespace StarCo
             StorageContainer.Small().Link(colony);
             StorageContainer.Small().Link(colony);
             StorageContainer.Medium().Link(colony);
+            new Habitat().Link(colony);
 
 
             //new BasicWorker(colony).Link(colony);

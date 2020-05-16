@@ -32,7 +32,8 @@ namespace StarCo.ViewModels
                 SelectedSubCategory = SelectedSubCategory;
                 if (selectedIndex > -1) { SelectedColonyItem = ColonyItems[selectedIndex]; }
             }
-            StorageSpace= ColonyController.GetStorageSpaceUsage();
+            StorageSpace = ColonyController.GetStorageSpaceUsage();
+            LivingSpace = ColonyController.GetLivingSpaceUsage();
         }
 
         private IList<ListItem> categories;

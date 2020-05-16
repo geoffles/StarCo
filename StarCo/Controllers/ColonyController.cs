@@ -134,6 +134,10 @@ namespace StarCo.Controllers
             {
                 return Colony.Storage.Containers.Select(p => p.ToColonyItemViewModel()).ToList();
             }
+            if (subcategory.Key == "habitat")
+            {
+                return Colony.Storage.Habitats.Select(p => p.ToColonyItemViewModel()).ToList();
+            }
 
             return null;
         }
@@ -145,7 +149,12 @@ namespace StarCo.Controllers
 
         public int GetStorageSpaceUsage()
         {
-            return (int)(Colony.Storage.Available * 100 / Colony.Storage.Size);
+            return (int)(Colony.Storage.Available * 100 / Colony.Storage.TotalStorageSpace);
+        }
+
+        public int GetLivingSpaceUsage()
+        {
+            return (int)(Colony.Storage.Available * 100 / Colony.Storage.TotalStorageSpace);
         }
     }
 }

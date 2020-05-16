@@ -86,7 +86,15 @@ namespace StarCo.ViewModels
                 selectedProductionOption = value;
                 FirePropertyChanged(() => SelectedProductionOption);
 
-                if (value != null)
+                if (value == null)
+                {
+                    return;                    
+                }
+                if (value.Label == "None")
+                {
+                    Prerequisites = new List<Prerequisite>();
+                }
+                else
                 {
                     Prerequisites = ObjectFactory.ProductionLookup().GetPrerequisitesFor(value.Key).ToList();
                 }

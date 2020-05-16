@@ -1,4 +1,5 @@
-﻿using StarCo.ViewModels;
+﻿using StarCo.Domain.Factories;
+using StarCo.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,16 +15,27 @@ namespace StarCo.Domain.Improvements
         [DataMember]
         public Colony Colony { get; private set; }
 
+        public Habitat()
+        {
+
+        }
+
         public string ResourceKey { get { return "habitat"; } }
 
         public void Tick(Colony colony)
         {
-            throw new NotImplementedException();
+            //Right now we don't do anything
         }
 
         public ColonyItemViewModel ToColonyItemViewModel()
         {
-            throw new NotImplementedException();
+            return new ColonyItemViewModel
+            {
+                Label = "Habitat",
+                Detail = string.Format("Capacity: {0}", Size),
+                SpriteUri = ObjectFactory.AssetName("Habitat"),
+                Tokens = string.Empty
+            };
         }
 
         public string SubCategoryKey
@@ -31,11 +43,26 @@ namespace StarCo.Domain.Improvements
             get { return this.GetType().Name.ToLower(); }
         }
 
+        public long Size
+        {
+            get { return 5; }
+        }
+
         public void Link(Colony colony)
         {
             Colony = colony;
-            //TODO: This should be encapsulated.
-            Colony.Storage.Habitats.Add(this);
+            Colony.Storage.AddHabitat(this);
+        }
+
+        protected bool CheckProductionSpace()
+        {
+            return false;
+            //throw new NotImplementedException();
+        }
+
+        protected void AllocateProduction()
+        {
+            //throw new NotImplementedException();
         }
     }
 }

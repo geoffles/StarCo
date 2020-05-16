@@ -86,7 +86,8 @@ namespace StarCo.Domain.Workers
                     {
                         "smallstorage",
                         "basicmine", 
-                        "basicquarry"
+                        "basicquarry",
+                        "habitat"
                     })
             {
                 Label = "Basic Worker",

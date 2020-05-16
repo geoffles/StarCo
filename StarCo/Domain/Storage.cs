@@ -16,7 +16,10 @@ namespace StarCo.Domain
         [DataMember]
         public IList<Habitat> Habitats { get; private set; }
         [DataMember]
-        public long Size { get; private set; }
+        public long TotalStorageSpace { get; private set; }
+        [DataMember]
+        public long TotalLivingSpace { get; private set; }
+
         [DataMember]
         public long Available { get; private set; }
 
@@ -30,8 +33,15 @@ namespace StarCo.Domain
         {
             Containers.Add(container);
 
-            Size = Containers.Sum(p => p.Size);
+            TotalStorageSpace = Containers.Sum(p => p.Size);
             Available += container.Size;
+        }
+
+        public void AddHabitat(Habitat habitat)
+        {
+            Habitats.Add(habitat);
+
+            TotalLivingSpace = Habitats.Sum(p => p.Size);
         }
 
         public void Free(long quantity)
